@@ -9,6 +9,10 @@ module.exports = (event) => {
 		
 		apiaiSession.on('response', (response) => {
 			const result = response.result.fulfillment.speech;
+			
+			// use google translate api to translate the text (not most reliable to just translate) 
+				// add in postback option for translation
+			// will need a "check" to see if foreign conversation is selected
 			sendTextMessage(senderId, result);
 		});
 		
