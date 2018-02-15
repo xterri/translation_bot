@@ -18,8 +18,8 @@ module.exports = (event) => {
 			if (error) {
 				console.log("Error getting user's name: " + error);
 			} else {
-				var bodyObj = JSON.parse(body);
-				var name = bodyObj.first_name;
+				//var bodyObj = JSON.parse(body);
+				var name = body.first_name;
 
 				greeting = "Hi " + name + "! ";
 			}
