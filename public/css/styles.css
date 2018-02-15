@@ -4,7 +4,7 @@ body {
 	padding: 0;
 	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.main-content {
+div {
 	width: 600px;
 	margin: 5em auto;
 	padding: 50px;
@@ -19,7 +19,7 @@ a:link, a:visited {
 	body {
 		background-color: #fff;
 	}
-	.main-content {
+	div {
 		width: auto;
 		margin: 0 auto;
 		border-radius: 0;
