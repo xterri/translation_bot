@@ -12,7 +12,7 @@ app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), () => console.log("Server listening on port " + app.get('port')));
 
 app.get('/', function(req, res) {
-	res.sendFile('views/main.html', { root: __dirname });
+	res.sendFile('web/main.html', { root: __dirname });
 });
 
 //app.get('/webhook', verificationController);
