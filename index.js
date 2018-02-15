@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-//const verificationController = require('./controllers/verification');
-//const webhookController = require('./controllers/webhook');
+const verificationController = require('./controllers/verification');
+const webhookController = require('./controllers/webhook');
 
 const app = express();
 app.use(bodyParser.json());
@@ -15,5 +15,5 @@ app.get('/', function(req, res) {
 	res.sendFile('web/main.html', { root: __dirname });
 });
 
-//app.get('/webhook', verificationController);
-//app.post('/webhook', webhookController);
+app.get('/webhook', verificationController);
+app.post('/webhook', webhookController);
