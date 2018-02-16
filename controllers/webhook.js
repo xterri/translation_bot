@@ -5,8 +5,6 @@ module.exports = (req, res) => {
 	if (req.body.object === 'page') {
 		req.body.entry.forEach(entry => {
 			entry.messaging.forEach(event => {
-				console.log(event.message.text);
-				console.log(even.postback);
 				if (event.message && event.message.text) {
 					processMessage(event);
 				} else if (event.postback) {
