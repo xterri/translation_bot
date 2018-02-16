@@ -30,7 +30,9 @@ module.exports = (event) => {
 					payload: {
 						template_type: "generic", 
 						elements: [{
+							title: "",
 							subtitle: "Would you like to converse in German?",
+
 							buttons: [{
 								type: "postback",
 								title: "Yes",
@@ -44,7 +46,7 @@ module.exports = (event) => {
 					}
 				}
 			};
-			sendTextMessage(senderId, message);
+			sendTextMessage(senderId, greeting + message);
 		});
 	}
 };
