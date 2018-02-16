@@ -10,14 +10,6 @@ module.exports = (event) => {
 		apiaiSession.on('response', (response) => {
 			var result = response.result.fulfillment.speech;
 
-			// if (response.result.action === "practice") {
-			// 	result += response.result.action;
-			// } else if (response.result.action === "purpose") {
-			// 	result += "terri testing this"; 
-			// } else {
-			// 	result += response.result.fulfillment.speech;
-			// }
-			
 			switch(response.result.action) {
 				case "purpose":
 					result += " No effing clue what to include here.";
@@ -26,6 +18,7 @@ module.exports = (event) => {
 					result += " Really need to move out.";
 					break ;
 				default:
+					result += " This is part of the default.";
 					break ;
 			}
 			// use google translate api to translate the text (not most reliable to just translate) 
