@@ -23,7 +23,6 @@ module.exports = (event) => {
 					break ;
 				default:
 					result += " This is part of the default.";
-					break ;
 			}
 			// use google translate api to translate the text (not most reliable to just translate) 
 				// add in postback option for translation

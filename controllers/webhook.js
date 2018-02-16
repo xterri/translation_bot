@@ -6,6 +6,7 @@ module.exports = (req, res) => {
 		req.body.entry.forEach(entry => {
 			entry.messaging.forEach(event => {
 				if (event.message && event.message.text) {
+					console.log(event.message.text);
 					processMessage(event);
 				} else if (event.postback) {
 					processPostback(event);
