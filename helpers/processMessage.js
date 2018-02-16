@@ -8,7 +8,7 @@ module.exports = (event) => {
 		const apiaiSession = apiAiClient.textRequest(message, {sessionId: senderId});
 		
 		apiaiSession.on('response', (response) => {
-			let result = "";
+			const result = "";
 			if (response.result.action === "practice") {
 				result += "Coolio, let's practice that";
 			} else if (response.result.action === "input.unknown") {
