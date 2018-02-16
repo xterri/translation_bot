@@ -9,15 +9,34 @@ admin.initializeApp({
     databaseURL: "https://tranbot-1.firebaseio.com"
 });
 
-var firestore = admin.firestore();
+var db = admin.database();
+var ref = db.ref("server/data/");
+ref.once("value", function(snapshot) {
+    console.log(snapshot.val());
+});
 
 module.exports = (userId, confirm, language) => {
     let saveToDb = {
-        id: userId,
-        practice: confirm,
-        language: language
+        "users": {
+            userId: {
+                "practice": confirm,
+                "language": language
+            }
+        }
     }
-    firestore.collection('translateSettings').add(saveToDb)
+
+    // creating the db reference
+    var usersRef = ref.child("users");
+    // '.set' >> writes data to the db/path
+    usersRef.set(saveToDb)
+    // ^ should see the json @ https://tranbot-1.firebaseio.com/server/data/users/[userId]/language
+        // ^ page should display language user chose
+    // JSON obj saved to db >> obj properties mapped to 'child' locations in nest fashion
+    // can save data directly to child location
+        //usersRef.child("[userId]").set({
+            // practice: true,
+            // language: [language]
+        //})
     .then(() => {
         return `Okay! Let's practice ${language}!`;
     })
