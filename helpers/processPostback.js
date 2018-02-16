@@ -32,7 +32,7 @@ module.exports = (event) => {
 						elements: [{
 							title: "",
 							subtitle: "Would you like to converse in German?",
-
+							image_url: "N/A",
 							buttons: [{
 								type: "postback",
 								title: "Yes",
