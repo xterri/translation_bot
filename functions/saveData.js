@@ -10,7 +10,7 @@ admin.initializeApp({
 });
 
 var db = admin.database();
-var ref = db.ref("server/data/");
+var ref = db.ref("/");
 ref.once("value", function(snapshot) {
     console.log(snapshot.val());
 });
@@ -29,7 +29,7 @@ module.exports = (userId, confirm, language) => {
     var usersRef = ref.child("users");
     // '.set' >> writes data to the db/path
     usersRef.set(saveToDb)
-    // ^ should see the json @ https://tranbot-1.firebaseio.com/server/data/users/[userId]/language
+    // ^ should see the json @ https://tranbot-1.firebaseio.com/users/[userId]/language
         // ^ page should display language user chose
     // JSON obj saved to db >> obj properties mapped to 'child' locations in nest fashion
     // can save data directly to child location
@@ -43,4 +43,29 @@ module.exports = (userId, confirm, language) => {
     .catch((e => {
         return "An error occurred. Cannot save to database.";
     }))
+    //completion callback:
+        // usersRef.set("[data to db]", function(error) {
+        //     if (error) {
+        //         alert("data could not be written. " + error);
+        //     } else {
+        //         alert("data saved");
+        //     }
+        // });
 };
+
+// update data:
+    // var terriRef = usersRef.child("[userId]");
+    // terriRef.update({
+    //     "nickname": "terannosaur"
+    // });
+// or
+    // usersRef.update({
+    //     "[userId]/[category]": "[update]",
+    //     "terri/nickname": "terannosaur"
+    // });
+// or
+    // usersRef.update({
+    //     "terri": {
+    //         "nickname": "terannosaur"
+    //     }
+    // });
