@@ -1,6 +1,10 @@
 /*
 ** ProcessMessage will return responses directly to the FB client/user
 ** Testing this in Dialogflow / API.ai will not get these responses
+**
+** ISSUES: 
+** 	With only one custom defined intent, there was a lag in response time
+** 	and default intents' actions were labeled as the one custom intent
 */
 const apiAiClient = require('apiai')(process.env.API_ACCESS_TOKEN);
 const sendTextMessage = require('./sendTextMessage');
@@ -21,7 +25,8 @@ module.exports = (event) => {
 			// adding onto / changing the api's response
 			switch(response.result.action) {
 				case "practice":
-					result += practiceResponse(response.result.parameters.Languages);
+					// respond with "sorry" if some other language given (?)
+					result += practiceResponse(response, senderId);
 					break ;
 				default:
 					result += " This is part of the default.";
