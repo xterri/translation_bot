@@ -1,8 +1,14 @@
+/*
+** Practice.js handles responses and return statements if user
+** initializes the bot's translation/language convesation function
+*/
+const saveToDatabase = require('../helpers/saveData');
+
 module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Language;
 
     if (languageParam) {
-        return (saveData(userId, true, "German"));
+        return (saveToDatabase(userId, true, "German"));
     }
     
     // save user's data and check which language they want to translate to
