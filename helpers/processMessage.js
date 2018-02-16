@@ -11,9 +11,12 @@ module.exports = (event) => {
 			let result = "";
 			if (response.result.action === "practice") {
 				result += "Coolio, let's practice that";
+			} else if (response.result.action === "input.unknown") {
+				result += "terri testing this"; 
 			} else {
 				result += response.result.fulfillment.speech;
 			}
+			console.log(result);
 			// use google translate api to translate the text (not most reliable to just translate) 
 				// add in postback option for translation
 			// will need a "check" to see if foreign conversation is selected
