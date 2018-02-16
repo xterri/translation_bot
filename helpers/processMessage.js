@@ -11,7 +11,7 @@ module.exports = (event) => {
 			var result = "";
 			if (response.result.action === "practice") {
 				result += response.result.action;
-			} else if (response.result.action === "input.unknown") {
+			} else if (response.result.action === "purpose") {
 				result += "terri testing this"; 
 			} else {
 				result += response.result.fulfillment.speech;
