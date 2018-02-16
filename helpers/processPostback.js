@@ -25,23 +25,19 @@ module.exports = (event) => {
 			}
 			// On greeting, ask if user wants to converse in __ language
 			var message = {
-				attachment: {
-					type: "template", 
-					payload: {
-						template_type: "generic", 
-						elements: [{
-							title: "",
-							subtitle: "Would you like to converse in German?",
-							image_url: "N/A",
-							buttons: [{
-								type: "postback",
-								title: "Yes",
-								payload: "Ja"
-							}, {
-								type: "postback",
-								title: "No",
-								payload: "Nein"
-							}]
+				'attachment': {
+					'type': "template", 
+					'payload': {
+						'template_type': "button", 
+						'text': "Would you like to converse in German?",
+						'buttons': [{
+							'type': "postback",
+							'title': "Yes",
+							'payload': "Ja"
+						}, {
+							'type': "postback",
+							'title': "No",
+							'payload': "Nein"
 						}]
 					}
 				}
