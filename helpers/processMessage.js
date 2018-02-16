@@ -8,7 +8,7 @@ module.exports = (event) => {
 		const apiaiSession = apiAiClient.textRequest(message, {sessionId: senderId});
 		
 		apiaiSession.on('response', (response) => {
-			const result = response.result.fulfillment.speech;
+			const result = response.result.fulfillment.speech + " Terri was here";
 			
 			// use google translate api to translate the text (not most reliable to just translate) 
 				// add in postback option for translation
