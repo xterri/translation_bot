@@ -8,8 +8,12 @@ module.exports = (event) => {
 		const apiaiSession = apiAiClient.textRequest(message, {sessionId: senderId});
 		
 		apiaiSession.on('response', (response) => {
-			const result = response.result.fulfillment.speech + " Terri was here";
-			
+			let result = "";
+			if (response.result.action === "practice") {
+				result += "Coolio, let's practice that";
+			} else {
+				result += response.result.fulfillment.speech;
+			}
 			// use google translate api to translate the text (not most reliable to just translate) 
 				// add in postback option for translation
 			// will need a "check" to see if foreign conversation is selected
