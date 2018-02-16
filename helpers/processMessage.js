@@ -1,6 +1,7 @@
 const apiAiClient = require('apiai')(process.env.API_ACCESS_TOKEN);
 const sendTextMessage = require('./sendTextMessage');
-
+const practiceResponse = require('../responses/practice'
+);
 module.exports = (event) => {
 	if (!event.message.is_echo) {
 		const senderId = event.sender.id;
@@ -12,7 +13,7 @@ module.exports = (event) => {
 
 			switch(response.result.action) {
 				case "practice":
-					result += " Really need to move out.";
+					result += practiceResponse(response.result.parameters.Languages);
 					break ;
 				default:
 					result += " This is part of the default.";
