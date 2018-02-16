@@ -1,5 +1,5 @@
-module.exports = (result) => {
-    switch(result.parameters.Languages) {
+module.exports = (languageParam) => {
+    switch(languageParam) {
         case "German":
             return "Okay, let's practice German!";
         case "English":
@@ -8,9 +8,6 @@ module.exports = (result) => {
             return "Konnichiwa!";
         default:
             // respond with "sorry" if some other language given
-            if (result.resolvedQuery === "French"){
-                return "Sorry, we can only chat in one of the following options: German, English or Japanese";
-            }
             return "";
     }
 };
