@@ -11,9 +11,6 @@ module.exports = (event) => {
 			var result = response.result.fulfillment.speech;
 
 			switch(response.result.action) {
-				case "purpose":
-					result += " No effing clue what to include here.";
-					break ;
 				case "practice":
 					result += " Really need to move out.";
 					break ;
