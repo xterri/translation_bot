@@ -24,7 +24,7 @@ module.exports = (event) => {
 				greeting = "Hi " + name + "! ";
 			}
 			// On greeting, ask if user wants to converse in __ language
-			var message = greeting + "I am in development mode, but my creator's goal is to make me offer to translate your texts."
+			var message = greeting + "I am in development mode, but my goal is to be able to offer to translate your texts."
 			sendTextMessage(senderId, greeting + message);
 		});
 	}
