@@ -23,7 +23,27 @@ module.exports = (event) => {
 
 				greeting = "Hi " + name + "! ";
 			}
-			var message = greeting + "I am Translation/Convesation Bot in development."
+			// On greeting, ask if user wants to converse in __ language
+			var message = {
+				attachment: {
+					type: "template", 
+					payload: {
+						template_type: "generic", 
+						elements: [{
+							subtitle: "Would you like to converse in German?",
+							buttons: [{
+								type: "postback",
+								title: "Yes",
+								payload: "Ja"
+							}, {
+								type: "postback",
+								title: "No",
+								payload: "Nein"
+							}]
+						}]
+					}
+				}
+			};
 			sendTextMessage(senderId, message);
 		});
 	}
