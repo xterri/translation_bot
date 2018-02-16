@@ -17,6 +17,7 @@ module.exports = (event) => {
 			// retrieving the api's actual response
 			var result = response.result.fulfillment.speech;
 
+			console.log(response.result.action);
 			// adding onto / changing the api's response
 			switch(response.result.action) {
 				case "practice":
