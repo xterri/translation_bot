@@ -8,7 +8,7 @@ module.exports = (result) => {
             return "Konnichiwa!";
         default:
             // respond with "sorry" if some other language given
-            if (result.resolvedQuery === "French")
+            if (result.resolvedQuery === "French"){
                 return "Sorry, we can only chat in one of the following options: German, English or Japanese";
             }
             return "";
