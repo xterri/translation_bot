@@ -8,13 +8,25 @@ module.exports = (event) => {
 		const apiaiSession = apiAiClient.textRequest(message, {sessionId: senderId});
 		
 		apiaiSession.on('response', (response) => {
-			var result = "";
-			if (response.result.action === "practice") {
-				result += response.result.action;
-			} else if (response.result.action === "purpose") {
-				result += "terri testing this"; 
-			} else {
-				result += response.result.fulfillment.speech;
+			var result = response.result.fulfillment.speech;
+
+			// if (response.result.action === "practice") {
+			// 	result += response.result.action;
+			// } else if (response.result.action === "purpose") {
+			// 	result += "terri testing this"; 
+			// } else {
+			// 	result += response.result.fulfillment.speech;
+			// }
+			
+			switch(response.result.action) {
+				case "purpose":
+					result += " No effing clue what to include here.";
+					break ;
+				case "practice":
+					result += " Really need to move out.";
+					break ;
+				default:
+					break ;
 			}
 			// use google translate api to translate the text (not most reliable to just translate) 
 				// add in postback option for translation
