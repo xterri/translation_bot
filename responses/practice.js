@@ -7,6 +7,6 @@ module.exports = (languageParam) => {
         case "Japanese": 
             return "Konnichiwa!";
         default:
-            return ;
+            return "";
     }
 };
