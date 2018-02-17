@@ -28,6 +28,7 @@ module.exports = (userId, confirm, language) => {
     // creating the db reference
     var usersRef = ref.child("users");
     // '.set' >> writes data to the db/path
+    // see documentation for '.push' 
     usersRef.set(saveToDb)
     // ^ should see the json @ https://tranbot-1.firebaseio.com/users/[userId]/language
         // ^ page should display language user chose
