@@ -20,8 +20,8 @@ let usersRef = db.ref('users');
 module.exports = (userId, confirm, language) => {
     console.log(">> in SaveData <<");
     console.log("id: " + userId + " language: " + language);
-    let userRef = usersRef.ref(userId);
-    userRef.push({
+    // let userRef = usersRef.ref(userId);
+    usersRef.push({
         id: userId,
         practice: confirm,
         language: language
