@@ -17,8 +17,10 @@ module.exports = (event) => {
 		const apiaiSession = apiAiClient.textRequest(message, {sessionId: senderId});
 		
 		apiaiSession.on('response', (response) => {
+			console.log(message);
 			// retrieving the api's actual response
 			var result = response.result.fulfillment.speech;
+			console.log(result);
 			// adding onto / changing the api's response
 			switch(response.result.action) {
 				case "practice":
