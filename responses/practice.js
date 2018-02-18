@@ -9,12 +9,12 @@ module.exports = (response, userId) => {
 
     console.log(languageParam);
     // save user's data and check which language they want to translate to
-    switch(languageParam) {
-        case "German":
+    switch(languageParam.toLowerCase()) {
+        case "german":
             return "Okay, let's practice German!";
-        case "English":
+        case "english":
             return "English it is!";
-        case "Japanese": 
+        case "japanese": 
             return "Konnichiwa!";
         default:
             // respond with "sorry" if some other language given
