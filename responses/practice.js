@@ -4,8 +4,10 @@
 */
 
 module.exports = (response, userId) => {
+    console.log(">>in practice.js<<");
     var languageParam = response.result.parameters.Language;
-    
+
+    console.log(languageParam);
     // save user's data and check which language they want to translate to
     switch(languageParam) {
         case "German":

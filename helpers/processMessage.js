@@ -20,7 +20,6 @@ module.exports = (event) => {
 			console.log(message);
 			// retrieving the api's actual response
 			var result = response.result.fulfillment.speech;
-			console.log(result);
 			// adding onto / changing the api's response
 			switch(response.result.action) {
 				case "practice":
@@ -31,6 +30,7 @@ module.exports = (event) => {
 					result += " This is part of the default.";
 					break ;
 			}
+			console.log(result);
 			// use google translate api to translate the text (not most reliable to just translate) 
 				// add in postback option for translation
 			// will need a "check" to see if foreign conversation is selected
