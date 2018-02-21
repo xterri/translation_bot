@@ -22,6 +22,7 @@ module.exports = (event) => {
 			var result = response.result.fulfillment.speech;
 			if (typeof result === 'string' || result instanceof String) {
 				console.log("Returning result: " + result);
+				console.log(response.result.action);
 			}
 			// adding onto / changing the api's response
 			switch(response.result.action) {
