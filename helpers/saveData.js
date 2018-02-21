@@ -15,17 +15,19 @@ var app = firebase.initializeApp(config);
 var db = app.database();
 
 // get reference to the 'users' node in db
-var usersRef = db.ref('users');
+//var usersRef = db.ref('users');
+
+// set() overwrites the data @ specified location
+function writeUserData(userId, confirm, language) {
+    db.ref('users/' + userId).set({
+        practice: confirm,
+        language: language
+    });
+}
 
 module.exports = (userId, confirm, language) => {
 
     console.log(">> in SaveData <<");
     console.log("id: " + userId + " language: " + language);
-    usersRef.push(userId);
-    let userRef = usersRef.ref(userId);
-    userRef.push({
-        id: userId,
-        practice: confirm,
-        language: language
-    });
+    writeUserData(userId, confirm, language);
 };
