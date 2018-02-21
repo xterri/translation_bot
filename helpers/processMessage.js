@@ -16,10 +16,9 @@ module.exports = (event) => {
 		const message = event.message.text;
 		const apiaiSession = apiAiClient.textRequest(message, {sessionId: senderId});
 		
-		console.log(message);
 		apiaiSession.on('response', (response) => {
 			// retrieving the api's actual response
-			var result = response.result.fulfillment.speech;
+			var result = "";
 
 			// adding onto / changing the api's response
 			switch(response.result.action) {
@@ -28,7 +27,8 @@ module.exports = (event) => {
 					result += practiceResponse(response, senderId);
 					break ;
 				default:
-					result += "";
+					result += response.result.fulfillment.speech;
+					console.log(result);
 					//check if user has an account in db and if practice is init
 					break ;
 			}
