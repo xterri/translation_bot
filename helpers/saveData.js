@@ -22,9 +22,10 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    db.ref('users/' + userId).once('language')
+    db.ref('users/' + userId).once('value')
         .then(function(snapshot) {
-            return (snapshot.val() ? snapshot.val() : "");
+            let isSet = snapshot.val().language;
+            return (isSet ? isSet : null);
         })
         .catch(e => {
             console.log(e);
