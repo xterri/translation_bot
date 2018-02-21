@@ -25,8 +25,8 @@ function getUserData(userId) {
     db.ref('users/' + userId).once('value')
         .then(function(snapshot) {
             let isSet = snapshot.val().language;
-            console.log(isSet);
-            return (isSet ? isSet : null);
+            console.log("isSet lang: " + isSet);
+            return (isSet);
         })
         .catch(e => {
             console.log(e);
@@ -37,7 +37,9 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        if (getUserData(userId)) {
+        let setLang = getUserData(userId);
+        if (setLang) {
+            console.log("language is set");
             return true;
         }
         return false;
