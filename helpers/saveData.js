@@ -26,23 +26,18 @@ function getUserData(userId) {
         .then(function(snapshot) {
             let isSet = snapshot.val().language;
             console.log("isSet lang: " + isSet);
-            return (isSet);
+            return (true);
         })
         .catch(e => {
             console.log(e);
         });
+    return (false);
 }
 
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        let setLang = getUserData(userId);
-        if (setLang) {
-            console.log("language is set");
-            return true;
-        }
-        console.log(setLang);
-        return false;
+        return getUserData(userId);
     }
 };
