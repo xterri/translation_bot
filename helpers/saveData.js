@@ -21,7 +21,7 @@ module.exports = (userId, confirm, language) => {
 
     console.log(">> in SaveData <<");
     console.log("id: " + userId + " language: " + language);
-    usersRef.push({userId});
+    usersRef.push(userId);
     let userRef = usersRef.ref(userId);
     userRef.push({
         id: userId,
