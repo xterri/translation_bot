@@ -13,8 +13,10 @@ module.exports = (response, userId) => {
             saveToDatabase(userId, true, languageParam);
             return "Okay, let's practice German!";
         case "english":
+            saveToDatabase(userId, true, languageParam);
             return "English it is!";
-        case "japanese": 
+        case "japanese":
+            saveToDatabase(userId, true, languageParam);
             return "Konnichiwa!";
         default:
             // respond with "sorry" if some other language given
