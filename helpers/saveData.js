@@ -25,6 +25,7 @@ function getUserData(userId) {
     db.ref('users/' + userId).once('value')
         .then(function(snapshot) {
             let isSet = snapshot.val().language;
+            console.log(isSet);
             return (isSet ? isSet : null);
         })
         .catch(e => {
