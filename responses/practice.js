@@ -6,17 +6,21 @@ const saveToDatabase = require('../helpers/saveData');
 
 module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
+    var languageSet = false;
+    if (languageParam) { 
+        saveToDatabase("set", userId, languageParam);
+    } else {
+        languageSet = saveToDatabase("get", userId, languageParam);
+        console.log(languageSet);
+    }
 
     // save user's data and check which language they want to translate to
     switch(languageParam) {
         case "german":
-            saveToDatabase(userId, true, languageParam);
             return "Okay, let's practice German!";
         case "english":
-            saveToDatabase(userId, true, languageParam);
             return "English it is!";
         case "japanese":
-            saveToDatabase(userId, true, languageParam);
             return "Konnichiwa!";
         default:
             // respond with "sorry" if some other language given

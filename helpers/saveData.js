@@ -15,13 +15,29 @@ var app = firebase.initializeApp(config);
 var db = app.database();
 
 // set() overwrites the data @ specified location
-function writeUserData(userId, confirm, language) {
+function writeUserData(userId, language) {
     db.ref('users/' + userId).set({
-        practice: confirm,
         language: language
     });
 }
 
-module.exports = (userId, confirm, language) => {
-    writeUserData(userId, confirm, language);
+function getUserData(userId) {
+    db.ref('users/' + userId).once('language')
+        .then(function(snapshot) {
+            return (snapshot.val() ? snapshot.val() : "");
+        })
+        .catch(e => {
+            console.log(e);
+        });
+}
+
+module.exports = (cmd, userId, language) => {
+    if (cmd === "set") {
+        writeUserData(userId, language);
+    } else if (cmd === "get") {
+        if (getUserData(userId)) {
+            return true;
+        }
+        return false;
+    }
 };
