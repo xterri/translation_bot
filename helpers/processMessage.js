@@ -20,10 +20,7 @@ module.exports = (event) => {
 		apiaiSession.on('response', (response) => {
 			// retrieving the api's actual response
 			var result = response.result.fulfillment.speech;
-			if (typeof result === 'string' || result instanceof String) {
-				console.log("Returning result: " + result);
-				console.log(response.result.action);
-			}
+
 			// adding onto / changing the api's response
 			switch(response.result.action) {
 				case "practice":
@@ -31,6 +28,7 @@ module.exports = (event) => {
 					result += practiceResponse(response, senderId);
 					break ;
 				default:
+					result += "";
 					//check if user has an account in db and if practice is init
 					break ;
 			}
