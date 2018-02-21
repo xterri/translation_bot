@@ -19,7 +19,7 @@ module.exports = (event) => {
 		console.log(message);
 		apiaiSession.on('response', (response) => {
 			// retrieving the api's actual response
-			var result = response.result.fulfillment.speech;
+			var result = "";
 			// adding onto / changing the api's response
 			switch(response.result.action) {
 				case "practice":
@@ -27,11 +27,14 @@ module.exports = (event) => {
 					result += practiceResponse(response, senderId);
 					break ;
 				default:
-					result += " This is part of the default.";
+					//check if user has an account in db and if practice is init
+					result += response.result.fulfillment.speech;
 					break ;
 			}
+
 			// use google translate api to translate the text (not most reliable to just translate) 
 				// add in postback option for translation
+
 			// will need a "check" to see if foreign conversation is selected
 			sendTextMessage(senderId, result);
 		});
