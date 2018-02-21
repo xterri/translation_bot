@@ -28,7 +28,6 @@ module.exports = (event) => {
 					break ;
 				default:
 					result += response.result.fulfillment.speech;
-					console.log(result);
 					//check if user has an account in db and if practice is init
 					break ;
 			}

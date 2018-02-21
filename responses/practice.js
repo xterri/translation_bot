@@ -20,6 +20,6 @@ module.exports = (response, userId) => {
             return "Konnichiwa!";
         default:
             // respond with "sorry" if some other language given
-            return "";
+            return response.result.fulfillment.speech;
     }
 };
