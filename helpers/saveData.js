@@ -42,6 +42,7 @@ module.exports = (cmd, userId, language) => {
             console.log("language is set");
             return true;
         }
+        console.log(setLang);
         return false;
     }
 };
