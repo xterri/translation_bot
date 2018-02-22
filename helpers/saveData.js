@@ -35,30 +35,36 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    var langSet = function () {
-        db.ref('users/' + userId).once('value')
-        .then (function(snapshot) {
-            if (typeof snapshot.val().language === 'string') {
-                console.log("langset is string: " + langSet);
-                return snapshot.val().language;
-            } else {
-                console.log("error with snapshot/language");
-                return "Error with snapshot";
-            }
-        }, function (error) {
-            if (error.code) {
-                console.log("Error in getting user's data: " + error.code);
-                return "Error getting values";
-            }
-        });
-    };
-    return langSet;
+    return new Promise (function (resolve, reject) {
+        try {
+            db.ref('users/' + userId).once('value', function(snapshot) {
+                if (typeof snapshot.val().language === 'undefined') {
+                    console.log("error with snapshot/language");
+                    resolve("Error with snapshot");
+                } else {
+                    console.log("langset is string: " + langSet);
+                    resolve(snapshot.val().language);
+                }
+            })
+        } catch (e) {
+            reject(e);
+        }
+    });
 }
 
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        return getUserData(userId);
+        var retStr = getUserData(userId)
+            .then(function (result) {
+                console.log(result);
+                return (result);
+            }).catch(function (error) {
+                console.log(error);
+                return ("error");
+            });
+        console.log("retStr: " + retStr);
+        return retStr;
     }
 };
