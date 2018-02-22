@@ -21,10 +21,10 @@ function writeUserData(userId, language) {
     });
 }
 
-function getUserData(userId, getData = () => {
-    var isSet;
+function getUserData(userId) {
+    var isSet = [];
     db.ref('users/' + userId).once('value', function(snapshot) {
-        isSet = snapshot.val().language;
+        isSet.push(snapshot.val().language);
     }, function (errorObj) {
         if (errorObj.code) {
             console.log("Error in getting user's data: " + errorObj.code);
@@ -32,14 +32,15 @@ function getUserData(userId, getData = () => {
             return isSet;
         }
     })
-})
+}
 
 module.exports = (cmd, userId, language) => {
     var returnStr = "";
     if (cmd === "set") {
         returnStr += "SETTING DATA: " + writeUserData(userId, language);
     } else if (cmd === "get") {
-        returnStr += "GETTING DATA: " + getUserData(userId);
+        var userArr = getUserData(userId);
+        returnStr += "GETTING DATA: " + userArr[0];
     }
     return returnStr;
 };
