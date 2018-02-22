@@ -29,9 +29,12 @@ function getUserData(userId) {
         if (errorObj.code) {
             console.log("Error in getting user's data: " + errorObj.code);
         } else {
+            console.log(isSet);
             return isSet;
         }
-    })
+    });
+    console.log("set2: " + isSet);
+    return (isSet);
 }
 
 module.exports = (cmd, userId, language) => {
