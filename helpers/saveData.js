@@ -22,16 +22,22 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    var isSet = "";
     db.ref('users/' + userId).once('value')
         .then(function(snapshot) {
-            isSet += snapshot.val().language;
+            let isSet = snapshot.val().language;
+            if (isSet) {
+                console.log("isSet is set");
+                console.log(isSet);
+                return true;
+            } else {
+                console.log("isSet is NOT set");
+            }
+
         })
         .catch(e => {
             console.log(e);
         });
-    console.log("isSet lang: " + isSet);
-    return isSet ? true : false;
+    return false;
 }
 
 module.exports = (cmd, userId, language) => {
