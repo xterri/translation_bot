@@ -40,7 +40,8 @@ module.exports = (cmd, userId, language) => {
         returnStr += "SETTING DATA: " + writeUserData(userId, language);
     } else if (cmd === "get") {
         var userArr = getUserData(userId);
-        returnStr += "GETTING DATA: " + userArr[0];
+        console.log(userArr);
+        returnStr += "GETTING DATA: ";
     }
     return returnStr;
 };
