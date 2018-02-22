@@ -19,7 +19,6 @@ function writeUserData(userId, language) {
     db.ref('users/' + userId).set({
         language: language
     });
-    return "writeUserData OK\n";
 }
 
 function getUserData(userId) {
@@ -27,11 +26,10 @@ function getUserData(userId) {
     db.ref('users/' + userId).once('value', function(snapshot) {
         var isSet = snapshot.val().language;
         retVal.push(isSet);
-        console.log(retVal);
+        console.log(retVal[0]);
         if (retVal)
             return (retVal[0]);
     });
-    return "getUserData FAIL\n";
 }
 
 module.exports = (cmd, userId, language) => {
