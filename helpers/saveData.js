@@ -66,7 +66,7 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var ret = await getUserData(userId)
+        var ret = getUserData(userId)
             .then(function (result) {
                 // whatever needs to be done, must be done in here, cannot pass values?
                 console.log("result: " + result);
