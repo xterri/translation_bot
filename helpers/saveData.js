@@ -21,7 +21,7 @@ function writeUserData(userId, language) {
     });
 }
 
-function getUserData(userId) {
+function getUserData(userId, getData = () => {
     var isSet;
     db.ref('users/' + userId).once('value', function(snapshot) {
         isSet = snapshot.val().language;
@@ -31,8 +31,8 @@ function getUserData(userId) {
         } else {
             return isSet;
         }
-    });
-}
+    })
+});
 
 module.exports = (cmd, userId, language) => {
     var returnStr = "";
