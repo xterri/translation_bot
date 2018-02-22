@@ -55,20 +55,24 @@ function getUserData(userId) {
     });
 }
 
+function languageSet(language) {
+    console.log("langSet functiOn: " + language);
+    if (language)
+        return "True lansget";
+    return "False langset";
+}
+
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var retStr = ""; 
         getUserData(userId)
             .then(function (result) {
+                // whatever needs to be done, must be done in here, cannot pass values?
                 console.log("result: " + result);
-                retStr += "True";
+                languageSet(result);
             }).catch(function (error) {
                 console.log(error);
-                retStr += "False";
             });
-        console.log("retStr: " + retStr);
-        return retStr;
     }
 };
