@@ -34,6 +34,10 @@ function writeUserData(userId, language) {
     });
 }
 
+// Sources:
+    // https://stackoverflow.com/questions/47566533/firebase-value-is-undefined-when-it-is-not-supposed-to-be
+    // https://stackoverflow.com/questions/39302577/firebase-retrieving-data-asynchronously
+    // https://medium.freecodecamp.org/how-to-write-beautiful-node-js-apis-using-async-await-and-the-firebase-database-befdf3a5ffee
 function getUserData(userId) {
     return new Promise (function (resolve, reject) {
         try {
@@ -42,7 +46,6 @@ function getUserData(userId) {
                     console.log("error with snapshot/language");
                     resolve("Error with snapshot");
                 } else {
-                    console.log("langset is string: " + langSet);
                     resolve(snapshot.val().language);
                 }
             })
