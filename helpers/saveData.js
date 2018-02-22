@@ -35,31 +35,29 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    var langSet = "";
-    db.ref('users/' + userId).once('value', function(snapshot) {
-        console.log(snapshot.val().language);
-        langSet += snapshot.val().language.toString();
-        if (typeof langSet === 'string')
-            console.log("langset is string: " + langSet);
-    }, function (errorObj) {
-        if (errorObj.code) {
-            console.log("Error in getting user's data: " + errorObj.code);
-        }
-    })
-    .then( () => {
-        console.log("isSET: " + langSet);
-        return langSet;
-    });
+    var langSet = function () {
+        db.ref('users/' + userId).once('value')
+        .then (function(snapshot) {
+            if (typeof snapshot.val().language === 'string') {
+                console.log("langset is string: " + langSet);
+                return snapshot.val().language;
+            } else {
+                console.log("error with snapshot/language");
+                return "Error with snapshot";
+            }
+        }, function (error) {
+            if (error.code) {
+                console.log("Error in getting user's data: " + error.code);
+                return "Error getting values";
+            }
+        });
+    };
 }
 
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var retData = getUserData(userId);
-        if (retData)
-            console.log("retData init: ");
-        console.log(retData);
-        return retData;
+        return getUserData(userId);
     }
 };
