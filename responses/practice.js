@@ -6,13 +6,12 @@ const saveToDatabase = require('../helpers/saveData');
 
 module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
-    var languageSet;
     console.log("check if langParam is set: " + languageParam);
-    
+
     if (languageParam) { 
         saveToDatabase("set", userId, languageParam);
     } else {
-        languageSet = saveToDatabase("get", userId, languageParam);
+        var languageSet = saveToDatabase("get", userId, languageParam);
         console.log(languageSet);
     }
 

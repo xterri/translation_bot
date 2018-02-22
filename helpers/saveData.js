@@ -32,11 +32,11 @@ function getUserData(userId) {
             } else {
                 console.log("isSet is NOT set");
             }
-
         })
         .catch(e => {
             console.log(e);
         });
+    console.log("SHOULD NOT BE IN HERE IF ISSET IS SET");
     return false;
 }
 
@@ -44,6 +44,9 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        return getUserData(userId);
+        var val = getUserData(userId);
+        console.log("return val from getUserData: ");
+        console.log(val);
+        return val;
     }
 };
