@@ -66,13 +66,14 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        getUserData(userId)
+        var ret = getUserData(userId)
             .then(function (result) {
                 // whatever needs to be done, must be done in here, cannot pass values?
                 console.log("result: " + result);
-                languageSet(result);
+                ret = languageSet(result);
             }).catch(function (error) {
                 console.log(error);
             });
+        await console.log(ret);
     }
 };
