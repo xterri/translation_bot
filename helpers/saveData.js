@@ -36,7 +36,10 @@ function writeUserData(userId, language) {
 function getUserData(userId) {
     var langSet;
     db.ref('users/' + userId).once('value', function(snapshot) {
+        console.log(snapshot.val().language);
         langSet = snapshot.val().language.toString();
+        if (typeof langSet === string)
+            console.log("langset is string: " + langSet);
     }, function (errorObj) {
         if (errorObj.code) {
             console.log("Error in getting user's data: " + errorObj.code);
@@ -51,10 +54,8 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var retArr = getUserData(userId);
         console.log("BEFORE EXPORT: ")
-        console.log(retArr);
-        returnStr += "GET DATA" + retArr[0];
+        returnStr += "GET DATA" + getUserData(userId);
     }
     return returnStr;
 };
