@@ -26,9 +26,10 @@ function getUserData(userId) {
     db.ref('users/' + userId).once('value', function(snapshot) {
         var isSet = snapshot.val().language;
         retVal.push(isSet);
-        console.log(retVal[0]);
-        if (retVal)
+        if (retVal) {
+            console.log("RetVal: " + retVal);
             return (retVal[0]);
+        }
     });
 }
 
