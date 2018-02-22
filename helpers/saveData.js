@@ -46,4 +46,5 @@ module.exports = (cmd, userId, language) => {
     } else if (cmd === "get") {
         return getUserData(userId);
     }
+    return "Something Here";
 };
