@@ -23,18 +23,14 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    var isSet; 
-    db.ref('users/' + userId).once('value')
-        .then(function(snapshot) {
-            isSet = snapshot.val().language;
-        })
-        .catch(function (error) {
-            console.log(e);
-        });
+    db.ref('users/' + userId).once('value', function(snapshot) {
+        var isSet = snapshot.val().language;
+    
+        if (isSet) {
+            return "getUserData OK\n";
+        }
+    });
     console.log(isSet);
-    if (isSet) {
-        return "getUserData OK\n";
-    }
     return "getUserData FAIL\n";
 }
 
