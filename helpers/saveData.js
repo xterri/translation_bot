@@ -22,15 +22,13 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    var retVal = [];
+    var retVal;
     db.ref('users/' + userId).once('value', function(snapshot) {
         var isSet = snapshot.val().language;
-        retVal.push(isSet);
-        if (retVal) {
-            console.log("RetVal: " + retVal);
-            return (retVal[0]);
-        }
+        if (isSet)
+            retVal = true;
     });
+    return retVal;
 }
 
 module.exports = (cmd, userId, language) => {
