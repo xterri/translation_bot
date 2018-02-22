@@ -28,7 +28,7 @@ function getUserData(userId) {
             if (isSet) {
                 console.log("isSet is set");
                 console.log(isSet);
-                return "SET";
+                return "GET";
             } else {
                 console.log("isSet is NOT set");
             }
@@ -36,13 +36,13 @@ function getUserData(userId) {
         .catch(e => {
             console.log(e);
         });
-    console.log("SHOULD NOT BE IN HERE IF ISSET IS SET");
+    return "FAIL";
 }
 
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
-        return "WRITTEN"
+        return "SET";
     } else if (cmd === "get") {
         return getUserData(userId);
     }
