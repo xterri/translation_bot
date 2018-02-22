@@ -22,19 +22,23 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    var isSet = [];
+    var isSet = "";
     db.ref('users/' + userId).once('value', function(snapshot) {
-        isSet.push(snapshot.val().language);
+        isSet += getData(snapshot.val().language);
     }, function (errorObj) {
         if (errorObj.code) {
             console.log("Error in getting user's data: " + errorObj.code);
-        } else {
-            console.log(isSet);
-            return isSet;
         }
     });
-    console.log("set2: " + isSet);
-    return (isSet);
+    console.log(isSet);
+    return isSet;
+}
+
+function getData(snap) {
+    console.log(snap);
+
+    var retStr = snap;
+    return retStr;
 }
 
 module.exports = (cmd, userId, language) => {
