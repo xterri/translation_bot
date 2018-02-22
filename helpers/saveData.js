@@ -55,7 +55,7 @@ module.exports = (cmd, userId, language) => {
         writeUserData(userId, language);
         return "SET OK\t";
     } else if (cmd === "get") {
-        return (() => {
+        return (function() {
             var ok;
             db.ref('users/' + userId).once('value', function(snapshot) {
                 if (snapshot.val().language) {
