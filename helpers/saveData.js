@@ -23,10 +23,12 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
+    var isSet; 
     db.ref('users/' + userId).once('value')
         .then(function(snapshot) {
-            let isSet = snapshot.val().language;
+            isSet = snapshot.val().language;
             if (isSet) {
+                console.log("does it even enter here?");
                 return "GET";
             } else {
                 console.log("isSet is NOT set");
