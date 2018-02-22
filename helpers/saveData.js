@@ -28,7 +28,7 @@ function getUserData(userId) {
             if (isSet) {
                 console.log("isSet is set");
                 console.log(isSet);
-                return true;
+                return isSet;
             } else {
                 console.log("isSet is NOT set");
             }
@@ -37,7 +37,6 @@ function getUserData(userId) {
             console.log(e);
         });
     console.log("SHOULD NOT BE IN HERE IF ISSET IS SET");
-    return false;
 }
 
 module.exports = (cmd, userId, language) => {
