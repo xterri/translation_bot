@@ -55,16 +55,16 @@ module.exports = (cmd, userId, language) => {
         writeUserData(userId, language);
         return "SET OK\t";
     } else if (cmd === "get") {
-        var langSet;
         var ok;
         db.ref('users/' + userId).once('value', function(snapshot) {
             if (snapshot.val().language) {
                 ok = true;
                 console.log("langset is string: " + ok);
-                db.ref('users/' + userId).off();
+                return ok;
             }
         });
         if (ok)
             return "GET OK\t";
     }
+    db.ref('users/' + userId).off();
 };
