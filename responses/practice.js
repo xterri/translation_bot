@@ -8,11 +8,11 @@ module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
     console.log("check if langParam is set: " + languageParam);
 
+    var languageSet = saveToDatabase("get", userId, languageParam);
+    console.log(languageSet);
+
     if (languageParam) { 
         saveToDatabase("set", userId, languageParam);
-    } else {
-        var languageSet = saveToDatabase("get", userId, languageParam);
-        console.log(languageSet);
     }
 
     // save user's data and check which language they want to translate to

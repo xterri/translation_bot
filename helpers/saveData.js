@@ -42,7 +42,8 @@ function getUserData(userId) {
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
+        return "WRITTEN"
     } else if (cmd === "get") {
-        getUserData(userId);
+        return getUserData(userId);
     }
 };
