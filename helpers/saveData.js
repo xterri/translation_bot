@@ -70,6 +70,7 @@ module.exports = (cmd, userId, language) => {
             .then(function (result) {
                 // whatever needs to be done, must be done in here, cannot pass values?
                 console.log("result: " + result);
+                // still having troubles doing checks & passing values / results
                 ret = languageSet(result);
             }).catch(function (error) {
                 console.log(error);
