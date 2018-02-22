@@ -56,11 +56,14 @@ module.exports = (cmd, userId, language) => {
         return "SET OK\t";
     } else if (cmd === "get") {
         var langSet;
+        var ok;
         db.ref('users/' + userId).once('value', function(snapshot) {
             if (snapshot.val().language) {
                 console.log("langset is string: " + langSet);
-                return "GET OK\t";
+                ok = true;
             }
         });
+        if (ok)
+            return "GET OK\t";
     }
 };
