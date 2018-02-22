@@ -19,7 +19,7 @@ function writeUserData(userId, language) {
     db.ref('users/' + userId).set({
         language: language
     });
-    return "writeUserData OK";
+    return "writeUserData OK\n";
 }
 
 function getUserData(userId) {
@@ -31,10 +31,11 @@ function getUserData(userId) {
         .catch(function (error) {
             console.log(e);
         });
+    console.log(isSet);
     if (isSet) {
-        return "getUserData OK";
+        return "getUserData OK\n";
     }
-    return "getUserData FAIL";
+    return "getUserData FAIL\n";
 }
 
 module.exports = (cmd, userId, language) => {
