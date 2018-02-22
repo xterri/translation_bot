@@ -22,30 +22,19 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    var isSet = "";
-    db.ref('users/' + userId).once('value', function(snapshot) {
-        isSet += getData(snapshot.val().language);
-    }, function (errorObj) {
-        if (errorObj.code) {
-            console.log("Error in getting user's data: " + errorObj.code);
-        }
-    });
-    console.log("isSET: " + isSet);
-    return isSet;
-}
-
-function getData(snap) {
-    var retStr = snap;
-    return retStr;
+    return db.ref('users/' + userId).once('value')
+        .then(function(snapshot) {
+            return snapshot.val();
+        });
 }
 
 module.exports = (cmd, userId, language) => {
     var returnStr = "";
     if (cmd === "set") {
-        returnStr += "SETTING DATA: " + writeUserData(userId, language);
+        writeUserData(userId, language);
     } else if (cmd === "get") {
         var retStr = getUserData(userId);
-        console.log("before Export: " + retStr);
+        console.log(retStr);
         returnStr += "GETTING DATA: " + retStr;
     }
     return returnStr;
