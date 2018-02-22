@@ -52,6 +52,7 @@ function getUserData(userId) {
             }
         });
     };
+    return langSet;
 }
 
 module.exports = (cmd, userId, language) => {
