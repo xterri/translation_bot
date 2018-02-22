@@ -65,18 +65,15 @@ function getUserData(userId) {
     // return isSet;
 }
 
-function gotData(data) {
-    
-}
-
 module.exports = (cmd, userId, language) => {
     var returnStr = "";
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var retStr = getUserData(userId);
-        console.log("before Export: " + retStr);
-        returnStr += "GETTING DATA: " + retStr;
+        var retArr = getUserData(userId);
+        console.log("BEFORE EXPORT: ")
+        console.log(retArr);
+        returnStr += "GET DATA" + retArr[0];
     }
     return returnStr;
 };
