@@ -65,6 +65,6 @@ module.exports = (cmd, userId, language) => {
         });
         if (ok)
             return "GET OK\t";
+        db.ref('users/' + userId).off();
     }
-    db.ref('users/' + userId).off();
 };
