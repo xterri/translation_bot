@@ -51,19 +51,16 @@ function writeUserData(userId, language) {
 // }
 
 module.exports = (cmd, userId, language) => {
-    var returnStr = "";
     if (cmd === "set") {
         writeUserData(userId, language);
+        return "SET OK\t";
     } else if (cmd === "get") {
-        var langSet = "";
-        db.ref('users/' + userId).on('value', function(snapshot) {
-            console.log(snapshot.val().language);
-            langSet += snapshot.val().language;
-            if (typeof langSet === 'string')
+        var langSet;
+        db.ref('users/' + userId).once('value', function(snapshot) {
+            if (snapshot.val().language) {
                 console.log("langset is string: " + langSet);
+                return "GET OK\t";
+            }
         });
-        returnStr += "GET DATA" + langSet;
-        db.ref('users/' + userId).off();
     }
-    return returnStr;
 };
