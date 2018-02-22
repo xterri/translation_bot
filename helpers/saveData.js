@@ -32,7 +32,7 @@ function getUserData(userId, getData = () => {
             return isSet;
         }
     })
-});
+})
 
 module.exports = (cmd, userId, language) => {
     var returnStr = "";
