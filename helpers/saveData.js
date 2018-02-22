@@ -30,7 +30,6 @@ function getUserData(userId) {
             return "getUserData OK\n";
         }
     });
-    console.log(isSet);
     return "getUserData FAIL\n";
 }
 
