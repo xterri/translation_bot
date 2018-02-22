@@ -27,6 +27,7 @@ const db = app.database();
         // limitToFirst(10) >> select top 10 rows
         // limitToLast(10) >> select bottom 10 rows
 // set() overwrites the data @ specified location
+
 function writeUserData(userId, language) {
     db.ref('users/' + userId).set({
         language: language
@@ -54,16 +55,12 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        let langSet = "";
+        var langSet = "";
         db.ref('users/' + userId).once('value', function(snapshot) {
             console.log(snapshot.val().language);
             langSet += snapshot.val().language;
             if (typeof langSet === string)
                 console.log("langset is string: " + langSet);
-        }, function (errorObj) {
-            if (errorObj.code) {
-                console.log("Error in getting user's data: " + errorObj.code);
-            }
         });
         returnStr += "GET DATA" + langSet;
     }
