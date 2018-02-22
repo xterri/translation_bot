@@ -19,6 +19,7 @@ function writeUserData(userId, language) {
     db.ref('users/' + userId).set({
         language: language
     });
+    return "SET SUCCESS";
 }
 
 function getUserData(userId) {
@@ -26,14 +27,13 @@ function getUserData(userId) {
         .then(function(snapshot) {
             let isSet = snapshot.val().language;
             if (isSet) {
-                console.log("isSet is set");
-                console.log(isSet);
                 return "GET";
             } else {
                 console.log("isSet is NOT set");
+                return "NO GET";
             }
         })
-        .catch(e => {
+        .catch(function (error) {
             console.log(e);
         });
     return "FAIL";
@@ -41,10 +41,9 @@ function getUserData(userId) {
 
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
-        writeUserData(userId, language);
-        return "SET";
+        return writeUserData(userId, language);
     } else if (cmd === "get") {
         return getUserData(userId);
     }
-    return "Something Here";
+    return "Error in Exporting Save Data";
 };
