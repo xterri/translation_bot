@@ -59,13 +59,14 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var retStr = getUserData(userId)
+        var retStr = ""; 
+        getUserData(userId)
             .then(function (result) {
-                console.log(result);
-                return (result);
+                console.log("result: " + result);
+                retStr += "True";
             }).catch(function (error) {
                 console.log(error);
-                return ("error");
+                retStr += "False";
             });
         console.log("retStr: " + retStr);
         return retStr;
