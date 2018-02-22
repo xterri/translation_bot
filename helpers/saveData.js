@@ -30,13 +30,11 @@ function getUserData(userId) {
             console.log("Error in getting user's data: " + errorObj.code);
         }
     });
-    console.log(isSet);
+    console.log("isSET: " + isSet);
     return isSet;
 }
 
 function getData(snap) {
-    console.log(snap);
-
     var retStr = snap;
     return retStr;
 }
@@ -46,9 +44,9 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         returnStr += "SETTING DATA: " + writeUserData(userId, language);
     } else if (cmd === "get") {
-        var userArr = getUserData(userId);
-        console.log(userArr);
-        returnStr += "GETTING DATA: ";
+        var retStr = getUserData(userId);
+        console.log("before Export: " + retStr);
+        returnStr += "GETTING DATA: " + retStr;
     }
     return returnStr;
 };
