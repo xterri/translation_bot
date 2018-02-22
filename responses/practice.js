@@ -12,6 +12,7 @@ module.exports = (response, userId) => {
     languageSet += saveToDatabase("get", userId, languageParam);
 
     if (languageParam) { 
+        console.log(">>> language param <<<");
         languageSet += saveToDatabase("set", userId, languageParam);
     }
 
