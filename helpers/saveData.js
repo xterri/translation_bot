@@ -19,7 +19,7 @@ function writeUserData(userId, language) {
     db.ref('users/' + userId).set({
         language: language
     });
-    return "SET SUCCESS";
+    return "writeUserData OK";
 }
 
 function getUserData(userId) {
@@ -29,10 +29,10 @@ function getUserData(userId) {
             isSet = snapshot.val().language;
             if (isSet) {
                 console.log("does it even enter here?");
-                return "GET";
+                return "getUserData OK";
             } else {
                 console.log("isSet is NOT set");
-                return "NO GET";
+                return "getUserData FAIL";
             }
         })
         .catch(function (error) {
@@ -42,10 +42,11 @@ function getUserData(userId) {
 }
 
 module.exports = (cmd, userId, language) => {
+    var returnStr = "";
     if (cmd === "set") {
-        return writeUserData(userId, language);
+        returnStr += "SETTING DATA: " + writeUserData(userId, language);
     } else if (cmd === "get") {
-        return getUserData(userId);
+        returnStr += "GETTING DATA: " + getUserData(userId);
     }
-    return "Error in Exporting Save Data";
+    return returnStr;
 };
