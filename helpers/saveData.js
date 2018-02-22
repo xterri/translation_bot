@@ -34,36 +34,32 @@ function writeUserData(userId, language) {
     });
 }
 
-// function getUserData(userId) {
-//     var langSet = "";
-//     db.ref('users/' + userId).once('value', function(snapshot) {
-//         console.log(snapshot.val().language);
-//         langSet += snapshot.val().language.toString();
-//         if (typeof langSet === string)
-//             console.log("langset is string: " + langSet);
-//     }, function (errorObj) {
-//         if (errorObj.code) {
-//             console.log("Error in getting user's data: " + errorObj.code);
-//         }
-//     });
-//     console.log("isSET: " + langSet);
-//     return langSet;
-// }
+function getUserData(userId) {
+    var langSet = "";
+    db.ref('users/' + userId).once('value', function(snapshot) {
+        console.log(snapshot.val().language);
+        langSet += snapshot.val().language.toString();
+        if (typeof langSet === string)
+            console.log("langset is string: " + langSet);
+    }, function (errorObj) {
+        if (errorObj.code) {
+            console.log("Error in getting user's data: " + errorObj.code);
+        }
+    })
+    .then( () => {
+        console.log("isSET: " + langSet);
+        return langSet;
+    });
+}
 
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
-        return "SET OK\t";
     } else if (cmd === "get") {
-        return (function() {
-            var ok;
-            db.ref('users/' + userId).once('value', function(snapshot) {
-                if (snapshot.val().language) {
-                    ok = true;
-                    console.log("langset is string: " + ok);
-                    return ok;
-                }
-            });
-        });
+        var retData = getUserData(userId);
+        if (retData)
+            console.log("retData init: ");
+        console.log(retData);
+        return retData;
     }
 };
