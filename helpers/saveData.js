@@ -34,7 +34,7 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    const userRef = db.child('users');
+    const userRef = db.ref('users');
     const query = userRef.orderByKey().equalTo(userId).limitToFirst(1);
 
     query.on('value', snap => {
