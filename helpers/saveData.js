@@ -27,18 +27,14 @@ function getUserData(userId) {
     db.ref('users/' + userId).once('value')
         .then(function(snapshot) {
             isSet = snapshot.val().language;
-            if (isSet) {
-                console.log("does it even enter here?");
-                return "getUserData OK";
-            } else {
-                console.log("isSet is NOT set");
-                return "getUserData FAIL";
-            }
         })
         .catch(function (error) {
             console.log(e);
         });
-    return "FAIL";
+    if (isSet) {
+        return "getUserData OK";
+    }
+    return "getUserData FAIL";
 }
 
 module.exports = (cmd, userId, language) => {
