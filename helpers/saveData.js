@@ -34,10 +34,10 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    var langSet;
+    var langSet = "";
     db.ref('users/' + userId).once('value', function(snapshot) {
         console.log(snapshot.val().language);
-        langSet = snapshot.val().language.toString();
+        langSet += snapshot.val().language.toString();
         if (typeof langSet === string)
             console.log("langset is string: " + langSet);
     }, function (errorObj) {
