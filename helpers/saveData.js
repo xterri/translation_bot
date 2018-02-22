@@ -34,35 +34,16 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    var retArr = [];
-    var userRef = db.ref('users/' + userId);
-    // ON the event 'VALUE', we need 2 callbacks, 1 to receive data, and 1 for error handling
-    userRef.on('value', function(data) {
-        // data.val() = gets the objects
-        var details = data.val();
-        // make the data into an Obj(?)
-        var keys = Object.keys(details); // gets an array of all the keys in js Obj.
-        console.log(keys);
-        for (var i = 0; i < keys.lenght; i++) {
-            var k = keys[i];
-            var lang = details[k].language; // goes over each key/title and gets the val for 'lang'
-            console.log(lang);
-            retArr.push(lang);
+    var langSet;
+    db.ref('users/' + userId).once('value', function(snapshot) {
+        langSet = snapshot.val().language.toString();
+    }, function (errorObj) {
+        if (errorObj.code) {
+            console.log("Error in getting user's data: " + errorObj.code);
         }
-        console.log(retArr);
-    }, function(error) {
-        console.log("Error! " + error);
     });
-    return (retArr);
-    // function(snapshot) {
-    //     isSet = snapshot.val().language;
-    // }, function (errorObj) {
-    //     if (errorObj.code) {
-    //         console.log("Error in getting user's data: " + errorObj.code);
-    //     }
-    // });
-    // console.log("isSET: " + isSet);
-    // return isSet;
+    console.log("isSET: " + langSet);
+    return langSet;
 }
 
 module.exports = (cmd, userId, language) => {
