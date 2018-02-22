@@ -11,9 +11,21 @@ var config = {
 
 var app = firebase.initializeApp(config);
 
-// get db
-var db = app.database();
-
+// get db; reference to the parent key
+const db = app.database();
+// const tableRef = "db.ref('<column name>')" [or] "db.child('<column name>')"
+// tableRef.orderFunction().queryFunction(); 
+    //orderFunction examples:
+        // orderByKey (by child's keys)
+        // orderByChild (like WHERE in SQL; keyName = keyValue)
+        // orderByValue (children orderd by Values, ex. numeric values)
+        // orderByPriority (ignored, should be able to do it with orderByChild)
+    //queryFunction examples:
+        // startAt('value/key') >> used to create a range query
+        // endAt('value/key') >> used for range query (keyName.equalTo('name'))
+        // equalTo('child_key') >> like WHERE clause in SQL
+        // limitToFirst(10) >> select top 10 rows
+        // limitToLast(10) >> select bottom 10 rows
 // set() overwrites the data @ specified location
 function writeUserData(userId, language) {
     db.ref('users/' + userId).set({
@@ -22,10 +34,25 @@ function writeUserData(userId, language) {
 }
 
 function getUserData(userId) {
-    return db.ref('users/' + userId).once('value')
-        .then(function(snapshot) {
-            return snapshot.val();
-        });
+    const userRef = db.child('users');
+    const query = userRef.orderByKey().equalTo(userId).limitToFirst(1);
+
+    query.on('value', snap => {
+        // render data
+        var val = snap.val().language;
+        console.log(val);
+        return (val);
+    });
+//     var isSet;
+//     db.ref('users/' + userId).once('value', function(snapshot) {
+//         isSet = snapshot.val().language;
+//     }, function (errorObj) {
+//         if (errorObj.code) {
+//             console.log("Error in getting user's data: " + errorObj.code);
+//         }
+//     });
+//     console.log("isSET: " + isSet);
+//     return isSet;
 }
 
 module.exports = (cmd, userId, language) => {
@@ -34,7 +61,7 @@ module.exports = (cmd, userId, language) => {
         writeUserData(userId, language);
     } else if (cmd === "get") {
         var retStr = getUserData(userId);
-        console.log(retStr);
+        console.log("before Export: " + retStr);
         returnStr += "GETTING DATA: " + retStr;
     }
     return returnStr;
