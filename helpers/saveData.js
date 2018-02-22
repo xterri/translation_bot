@@ -39,7 +39,7 @@ function getUserData(userId) {
     db.ref('users/' + userId).once('value', function(snapshot) {
         console.log(snapshot.val().language);
         langSet += snapshot.val().language.toString();
-        if (typeof langSet === string)
+        if (typeof langSet === 'string')
             console.log("langset is string: " + langSet);
     }, function (errorObj) {
         if (errorObj.code) {
