@@ -43,6 +43,9 @@ function getUserData(userId) {
     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
     return new Promise(db.ref('users/' + userId).once('value', function(snapshot) {
             resolve(snapshot.val());
+        }, function(error){
+            console.log(error);
+            reject(error);
         }));
 }
 
