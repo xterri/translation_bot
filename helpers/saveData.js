@@ -39,18 +39,22 @@ function writeUserData(userId, language) {
     // https://stackoverflow.com/questions/39302577/firebase-retrieving-data-asynchronously
     // https://medium.freecodecamp.org/how-to-write-beautiful-node-js-apis-using-async-await-and-the-firebase-database-befdf3a5ffee
 
-function returnSnap(snapshot) {
-    return snapshot.val().language;
+function getUserData(userId) {
+    // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
+    return new Promise(db.ref('users/' + userId).once('value', function(snapshot) {
+            resolve(snapshot.val());
+        }));
 }
 
-function getUserData(userId) {
-    return db.ref('users/' + userId).once('value').then(returnSnap);
+async function confirmLanguageSet(userId) {
+    var result = await getUserData(userId);
+    console.log(result);
 }
 
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        console.log(getUserData(userId).then(data => data));
+        var result = confirmLanguageSet(userId);
     }
 };
