@@ -43,7 +43,7 @@ async function getUserData(userId) {
     var retLang;
     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
     var retVal = await db.ref('users/' + userId).once('value', function(snapshot) {
-        dataVal = await snapshot.val();
+        dataVal = snapshot.val();
         retLang = dataVal.language;
     });
     console.log("dataVal: ");
