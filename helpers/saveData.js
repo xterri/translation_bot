@@ -77,10 +77,11 @@ module.exports = (cmd, userId, language) => {
             console.log("value: ");
             console.log(value);
             result = value;
+            return value;
         });
-        console.log("result: ");
-        console.log(result);
-        return result;
+        // console.log("result: ");
+        // console.log(result);
+        // return result;
             // .then(function (result) {
             //     // whatever needs to be done, must be done in here, cannot pass values?
             //     console.log("result: " + result);
