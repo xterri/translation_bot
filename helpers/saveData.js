@@ -59,8 +59,9 @@ module.exports = (cmd, userId, language) => {
         var result = async function() {
             await getUserData(userId);
         }
-        console.log("result: ");
-        console.log(result);
-        return result;
+        var thing = result();
+        console.log("thing: ");
+        console.log(thing);
+        return result();
     }
 };
