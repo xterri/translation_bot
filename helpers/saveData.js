@@ -50,47 +50,17 @@ async function getUserData(userId) {
     console.log(dataVal);
     console.log("retLang: " + retLang);
     return retLang;
-    // return new Promise (function (resolve, reject) {
-    //     try {
-    //         db.ref('users/' + userId).once('value', function(snapshot) {
-    //             if (typeof snapshot.val().language === 'undefined') {
-    //                 console.log("error with snapshot/language");
-    //                 resolve("Error with snapshot");
-    //             } else {
-    //                 resolve(snapshot.val().language);
-    //             }
-    //         })
-    //     } catch (e) {
-    //         reject(e);
-    //     }
-    // });
 }
 
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        // result should receive a "promise" to resolve to get the "language"
-        var promise1 = getUserData(userId);
-        var result = 
-        promise1.then(function(value) {
-            console.log("value: ");
-            console.log(value);
-            resolve(value);
-        });
+        var result = async function() {
+            await getUserData(userId);
+        }
         console.log("result: ");
         console.log(result);
         return result;
-        // console.log("result: ");
-        // console.log(result);
-        // return result;
-            // .then(function (result) {
-            //     // whatever needs to be done, must be done in here, cannot pass values?
-            //     console.log("result: " + result);
-            //     // still having troubles doing checks & passing values / results
-            //     return "true";
-            // }).catch(function (error) {
-            //     console.log(error);
-            // });
     }
 };
