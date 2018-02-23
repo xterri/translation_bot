@@ -71,9 +71,9 @@ module.exports = (cmd, userId, language) => {
         writeUserData(userId, language);
     } else if (cmd === "get") {
         // result should receive a "promise" to resolve to get the "language"
-        const result = getUserData(userId)
-            .then(data => data);
-        console.log("result");
+        const result = Promise.all(getUserData(userId)
+            .then(data => data));
+        console.log("result: ");
         console.log(result);
         return result;
             // .then(function (result) {
