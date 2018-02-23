@@ -53,6 +53,7 @@ module.exports = (cmd, userId, language) => {
         writeUserData(userId, language);
     } else if (cmd === "get") {
         var result = getUserData(userId);
+        console.log(result);
         var thing = Promise.all(result);
         console.log("thing: ");
         console.log(thing);
