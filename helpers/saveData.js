@@ -40,7 +40,7 @@ function writeUserData(userId, language) {
     // https://medium.freecodecamp.org/how-to-write-beautiful-node-js-apis-using-async-await-and-the-firebase-database-befdf3a5ffee
 function getUserData(userId) {
     return db.ref('users/' + userId).once('value')
-        .then(snapshot => snapshot.val())
+        .then(snapshot => snapshot.val().json())
         .then(data => data.language);
     // return new Promise (function (resolve, reject) {
     //     try {
