@@ -78,6 +78,8 @@ module.exports = (cmd, userId, language) => {
             console.log(value);
             resolve(value);
         });
+        console.log("result: ");
+        console.log(result);
         return result;
         // console.log("result: ");
         // console.log(result);
