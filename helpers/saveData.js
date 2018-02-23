@@ -39,42 +39,39 @@ function writeUserData(userId, language) {
     // https://stackoverflow.com/questions/39302577/firebase-retrieving-data-asynchronously
     // https://medium.freecodecamp.org/how-to-write-beautiful-node-js-apis-using-async-await-and-the-firebase-database-befdf3a5ffee
 function getUserData(userId) {
-    return new Promise (function (resolve, reject) {
-        try {
-            db.ref('users/' + userId).once('value', function(snapshot) {
-                if (typeof snapshot.val().language === 'undefined') {
-                    console.log("error with snapshot/language");
-                    resolve("Error with snapshot");
-                } else {
-                    resolve(snapshot.val().language);
-                }
-            })
-        } catch (e) {
-            reject(e);
-        }
-    });
-}
-
-function languageSet(language) {
-    console.log("langSet functiOn: " + language);
-    if (language)
-        return "True lansget";
-    return "False langset";
+    return db.ref('users/' + userId).once('value')
+        .then(snapshot => snapshot.val())
+        .then(data => data.language);
+    // return new Promise (function (resolve, reject) {
+    //     try {
+    //         db.ref('users/' + userId).once('value', function(snapshot) {
+    //             if (typeof snapshot.val().language === 'undefined') {
+    //                 console.log("error with snapshot/language");
+    //                 resolve("Error with snapshot");
+    //             } else {
+    //                 resolve(snapshot.val().language);
+    //             }
+    //         })
+    //     } catch (e) {
+    //         reject(e);
+    //     }
+    // });
 }
 
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var ret = getUserData(userId)
-            .then(function (result) {
-                // whatever needs to be done, must be done in here, cannot pass values?
-                console.log("result: " + result);
-                // still having troubles doing checks & passing values / results
-                ret = languageSet(result);
-            }).catch(function (error) {
-                console.log(error);
-            });
-        console.log(ret);
+        const result = getUserData(userId);
+        console.log(result);
+        return result;
+            // .then(function (result) {
+            //     // whatever needs to be done, must be done in here, cannot pass values?
+            //     console.log("result: " + result);
+            //     // still having troubles doing checks & passing values / results
+            //     return "true";
+            // }).catch(function (error) {
+            //     console.log(error);
+            // });
     }
 };
