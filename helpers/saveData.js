@@ -38,10 +38,18 @@ function writeUserData(userId, language) {
     // https://stackoverflow.com/questions/47566533/firebase-value-is-undefined-when-it-is-not-supposed-to-be
     // https://stackoverflow.com/questions/39302577/firebase-retrieving-data-asynchronously
     // https://medium.freecodecamp.org/how-to-write-beautiful-node-js-apis-using-async-await-and-the-firebase-database-befdf3a5ffee
-function getUserData(userId) {
-    return db.ref('users/' + userId).once('value')
-        .then(snapshot => snapshot.val().json())
-        .then(data => data.language);
+async function getUserData(userId) {
+    var dataVal;
+    var retLang;
+    // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
+    var retVal = await db.ref('users/' + userId).once('value', function(snapshot) {
+        dataVal = await snapshot.val();
+        retLang = dataVal.language;
+    });
+    console.log("dataVal: ");
+    console.log(dataVal);
+    console.log("retLang: " + retLang);
+    return retLang;
     // return new Promise (function (resolve, reject) {
     //     try {
     //         db.ref('users/' + userId).once('value', function(snapshot) {
@@ -62,6 +70,7 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
+        // result should receive a "promise" to resolve to get the "language"
         const result = getUserData(userId);
         console.log(result);
         return result;
