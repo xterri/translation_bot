@@ -40,16 +40,28 @@ function writeUserData(userId, language) {
     // https://medium.freecodecamp.org/how-to-write-beautiful-node-js-apis-using-async-await-and-the-firebase-database-befdf3a5ffee
     // https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8
 
-async function getUserData() {
+function getUser() {
+    return db.ref('users/').once('value', function(snapshot) {
+        console.log("\nfrom firebase: ");
+        return snapshotToArray(snapshot);
+    }, function(errorObject){
+        console.log("read failed: " + errorObject.code);
+    });
+};
+
+async function getUserLanguageSetting(userId) {
     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
-    var userDetails = await db.ref('users/').once('value', function(snapshot) {
-            console.log("\nfrom firebase: ");
-            return snapshotToArray(snapshot);
-        }, function(errorObject){
-            console.log("read failed: " + errorObject.code);
-        });
+    var userDetails = await getUser();
     console.log(userDetails);
-    return userDetails;
+
+    userDetails.forEach(function(id) {
+        console.log(id);
+        if (id.userId === userId) {
+            console.log("match");
+            return true;
+        }
+    })
+    return false;
 };
 
 function snapshotToArray(snapshot) {
@@ -61,9 +73,6 @@ function snapshotToArray(snapshot) {
 
         returnArr.push(details);
     });
-
-    console.log("snapshotArray: ");
-    console.log(returnArr);
     return returnArr;
 };
 
@@ -72,6 +81,6 @@ module.exports = (cmd, userId, language) => {
         writeUserData(userId, language);
     } else if (cmd === "get") {
         console.log("\nbefore return");
-        return getUserData();
+        return getUserLanguageSetting(userId);
     }
 };
