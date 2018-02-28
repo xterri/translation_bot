@@ -59,6 +59,7 @@ module.exports = (cmd, userId, language) => {
         writeUserData(userId, language);
     } else if (cmd === "get") {
         var result = getUserData(userId);
+        console.log("result before return: ");
         console.log(result);
     }
 };
