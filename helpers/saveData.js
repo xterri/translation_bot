@@ -40,9 +40,9 @@ function writeUserData(userId, language) {
     // https://medium.freecodecamp.org/how-to-write-beautiful-node-js-apis-using-async-await-and-the-firebase-database-befdf3a5ffee
     // https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8
 
-async function getUserData(userId) {
+async function getUserData() {
     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
-    let userDetails = await db.ref('users/' + userId).once('value', function(snapshot) {
+    let userDetails = await db.ref('users/').once('value', function(snapshot) {
             console.log("\nfrom firebase: ");
             return snapshotToArray(snapshot);
         }, function(errorObject){
@@ -72,7 +72,7 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var result = getUserData(userId);
+        var result = getUserData();
         console.log("\nresult before return: ");
         console.log(result);
     }
