@@ -48,8 +48,8 @@ async function getUserData() {
         }, function(errorObject){
             console.log("read failed: " + errorObject.code);
         });
-    console.log(userDetails[0].language);
-    return userDetails[0].language;
+    console.log(userDetails);
+    return userDetails;
 };
 
 function snapshotToArray(snapshot) {
@@ -57,7 +57,7 @@ function snapshotToArray(snapshot) {
 
     snapshot.forEach(function(userSnapshot) {
         var details = userSnapshot.val();
-        details.userId = userSnapshot.userId;
+        details.userId = userSnapshot.key;
 
         returnArr.push(details);
     });
