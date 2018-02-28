@@ -43,23 +43,37 @@ function writeUserData(userId, language) {
 async function getUserData(userId) {
     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
     let userDetails = await db.ref('users/' + userId).once('value', function(snapshot) {
-            console.log("from firebase: ");
-            console.log(snapshot.val());
-            return snapshot.val().language;
+            console.log("\nfrom firebase: ");
+            return snapshotToArray(snapshot);
         }, function(errorObject){
             console.log("read failed: " + errorObject.code);
         });
-    console.log("userData: ");
+    console.log("\nuserData: ");
     console.log(userDetails);
     return userDetails;
-}
+};
+
+function snapshotToArray(snapshot) {
+    var returnArr = [];
+
+    snapshot.forEach(function(userSnapshot) {
+        var details = userSnapshot.val();
+        details.key = userSnapshot.key;
+
+        returnArr.push(details);
+    });
+
+    console.log("snapshotArray: ");
+    console.log(returnArr);
+    return returnArr;
+};
 
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
         var result = getUserData(userId);
-        console.log("result before return: ");
+        console.log("\nresult before return: ");
         console.log(result);
     }
 };
