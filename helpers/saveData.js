@@ -45,7 +45,7 @@ async function getUserData(userId) {
     let userDetails = await db.ref('users/' + userId).once('value', function(snapshot) {
             console.log("from firebase: ");
             console.log(snapshot.val());
-            return snapshot.val();
+            return snapshot.val().language;
         }, function(errorObject){
             console.log("read failed: " + errorObject.code);
         });
