@@ -43,11 +43,13 @@ function writeUserData(userId, language) {
 async function getUserData(userId) {
     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
     let userDetails = await db.ref('users/' + userId).once('value', function(snapshot) {
-            resolve(snapshot.val());
-        }, function(error){
-            console.log(error);
-            reject(error);
+            console.log("from firebase: ");
+            console.log(snapshot.val());
+            return snapshot.val();
+        }, function(errorObject){
+            console.log("read failed: " + errorObject.code);
         });
+    console.log("userData: ");
     console.log(userDetails);
     return userDetails;
 }
