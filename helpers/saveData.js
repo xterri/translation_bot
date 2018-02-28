@@ -42,15 +42,14 @@ function writeUserData(userId, language) {
 
 async function getUserData() {
     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
-    let userDetails = await db.ref('users/').once('value', function(snapshot) {
+    var userDetails = await db.ref('users/').once('value', function(snapshot) {
             console.log("\nfrom firebase: ");
             return snapshotToArray(snapshot);
         }, function(errorObject){
             console.log("read failed: " + errorObject.code);
         });
-    console.log("\nuserData: ");
-    console.log(userDetails);
-    return userDetails;
+    console.log(userDetails[0].language);
+    return userDetails[0].language;
 };
 
 function snapshotToArray(snapshot) {
@@ -58,7 +57,7 @@ function snapshotToArray(snapshot) {
 
     snapshot.forEach(function(userSnapshot) {
         var details = userSnapshot.val();
-        details.key = userSnapshot.key;
+        details.userId = userSnapshot.userId;
 
         returnArr.push(details);
     });
@@ -72,8 +71,7 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var result = getUserData();
-        console.log("\nresult before return: ");
-        console.log(result);
+        console.log("\nbefore return");
+        return getUserData();
     }
 };
