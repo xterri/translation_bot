@@ -41,7 +41,7 @@ function writeUserData(userId, language) {
     // https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8
 
 function getUser() {
-    return db.ref('users/').once('value', function(snapshot) {
+    db.ref('users/').once('value', function(snapshot) {
         console.log("\nfrom firebase: ");
         return snapshotToArray(snapshot);
     }, function(errorObject){
@@ -55,6 +55,7 @@ async function getUserLanguageSetting(userId) {
     console.log(userDetails);
 
     userDetails.forEach(function(id) {
+        console.log("test:");
         console.log(id);
         if (id.userId === userId) {
             console.log("match");
