@@ -41,29 +41,32 @@ function writeUserData(userId, language) {
     // https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8
 
 function getUser() {
-    db.ref('users/').once('value', function(snapshot) {
-        console.log("\nfrom firebase: ");
-        return snapshotToArray(snapshot);
+    return db.ref('users/')
+        .once('value', function(snapshot) {
+            console.log("\nfrom firebase: ");
+            return (snapshot.val());
     }, function(errorObject){
         console.log("read failed: " + errorObject.code);
     });
 };
 
-// async function getUserLanguageSetting(userId) {
-//     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
-//     var userDetails = await getUser();
-//     console.log(userDetails);
+async function getUserLanguageSetting(userId) {
+    // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
+    var userDetails = getUser().then(value => {
+        console.log(value);
+    });
+    console.log(userDetails);
 
-//     userDetails.forEach(function(id) {
-//         console.log("test:");
-//         console.log(id);
-//         if (id.userId === userId) {
-//             console.log("match");
-//             return true;
-//         }
-//     })
-//     return false;
-// };
+    userDetails.forEach(function(id) {
+        console.log("test:");
+        console.log(id);
+        if (id.userId === userId) {
+            console.log("match");
+            return true;
+        }
+    });
+    return false;
+};
 
 function snapshotToArray(snapshot) {
     var returnArr = [];
