@@ -15,11 +15,14 @@ module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
 
     // goes to async function >> "result" / promise = passed into then()'s function param
-    return getUserLanguageResult(userId).then(function(result) {
-        // extract/get promise results/values and return them
-        return Promise.all([result]).then(function(results) {
-            return results[0];
-        });
+        // return getUserLanguageResult(userId).then(function(result) {
+        //     // extract/get promise results/values and return them
+        //     return Promise.all([result]).then(function(results) {
+        //         return results[0];
+        //     });
+    return saveToDatabase("get", userId).then(function(result) {
+        console.log("result in practice.js: ", result);
+        return result;
         // "language" = return value from '.then(function(result))
     }).then(function(language) {
         // anything to be done with the results must be done in here
