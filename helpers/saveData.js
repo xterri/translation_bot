@@ -84,7 +84,7 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var getLanguage = getUserData(userId);
+        var getLanguage = getUserLanguageSetting(userId);
         Promise.all([getLanguage]).then(function(results) {
             console.log(results[0]);
         });
