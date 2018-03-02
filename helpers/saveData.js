@@ -42,7 +42,7 @@ function writeUserData(userId, language) {
 
 function getUser() {
     return db.ref('users/')
-        .once('value', function(snapshot) {
+        .on('value', function(snapshot) {
             console.log("\nfrom firebase: ");
             return (snapshot.val());
     }, function(errorObject){
