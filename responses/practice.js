@@ -31,13 +31,13 @@ module.exports = (response, userId) => {
 
     //}).then(function(check) {
         console.log("then thing, language?");
-        console.log(check);
+        //console.log(check);
 
         if (languageParam) { 
             saveToDatabase("set", userId, languageParam);
-        } else {
-            languageParam += "language set?"
-        }
+        } //else {
+        //     languageParam += "language set?"
+        // }
     //});
 
     // save user's data and check which language they want to translate to
