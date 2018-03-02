@@ -23,11 +23,21 @@ module.exports = (event) => {
 			// adding onto / changing the api's response
 			switch(response.result.action) {
 				case "practice":
+					let promise = Promise.resolve(practiceResponse(response, senderId));
+
+					console.log("promise: \n", promise);
 					// respond with "sorry" if some other language given (?)
-					result += practiceResponse(response, senderId).then(function(returnMsg) {
-						console.log("returnMsg: ", returnMsg);
-						return returnMsg;
-					});
+					result += promise.then(function(value) {
+						console.log("value from promise: ", value);
+						return value;
+					})
+					
+					// .then(function(returnMsg) {
+					// 	console.log("returnMsg: ", returnMsg);
+					// 	return returnMsg;
+					// });
+
+					console.log("result: ", result);
 					break ;
 				default:
 					result += response.result.fulfillment.speech;

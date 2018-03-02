@@ -32,6 +32,5 @@ module.exports = (response, userId) => {
                     return response.result.fulfillment.speech;
             }
         }
-        // add done() to end promise chaining?
-    }).done();
+    });
 };
