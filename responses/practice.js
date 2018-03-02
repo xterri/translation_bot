@@ -4,27 +4,29 @@
 */
 const saveToDatabase = require('../helpers/saveData');
 
+// async always returns a promise, so must handle it in function that calls it
 async function getUserLanguageResult(userId) {
     let getResult = await saveToDatabase("get", userId);
 
     return getResult;
-    // Promise.all([getPromise]).then(function(results) {
-    //     console.log("in practice.js: " + results[0]);
-    //     return results[0];
-    // });
 };
 
 module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
 
-    getUserLanguageResult(userId).then(function(result) {        
+    // goes to async function >> "result" / promise = passed into then()'s function param
+    getUserLanguageResult(userId).then(function(result) {
+        // extract/get promise results/values and return them
         return Promise.all([result]).then(function(results) {
             return results[0];
         });
-    }).then(function(thing) {
-      console.log("thing: ", thing); 
-      if (thing)
-        console.log("\nsomething");
+        // "language" = return value from '.then(function(result))
+    }).then(function(language) {
+        // anything to be done with the results must be done in here
+            // cannot pass outside the promise, else it will be the last thing done
+        if (language) {
+            return "Language Set to " + language;
+        }
     });
 
     if (languageParam) { 
