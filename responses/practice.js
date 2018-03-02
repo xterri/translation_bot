@@ -4,10 +4,10 @@
 */
 const saveToDatabase = require('../helpers/saveData');
 
-async function getUserLanguageResult(userId) {
-    let getResult = await saveToDatabase("get", userId);
+function getUserLanguageResult(userId) {
+    let getResult = saveToDatabase("get", userId);
 
-    console.log(getResult);
+    console.log("getResult: ", getResult);
     return getResult;
     // Promise.all([getPromise]).then(function(results) {
     //     console.log("in practice.js: " + results[0]);
