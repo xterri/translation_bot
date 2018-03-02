@@ -19,14 +19,14 @@ module.exports = (response, userId) => {
     var getPromise;
     var check;
     var languageParam = response.result.parameters.Languages.toLowerCase();
-    console.log("check if langParam is set: " + languageParam);
-
 
     getUserLanguageResult(userId).then(function(result) {
-            check = Promise.all([result]).then(function(results) {
-                console.log("in practice.js: " + results[0]);
-                return results[0];
-            console.log(check);
+        console.log("results: ", result);
+        check = Promise.all([result]).then(function(results) {
+            console.log("in practice.js: " + results[0]);
+            return results[0];
+        }).then(function(thing) {
+            console.log("thing: ", thing);
         });
     });
     //return result
