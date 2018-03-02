@@ -9,7 +9,9 @@ module.exports = (response, userId) => {
     console.log("check if langParam is set: " + languageParam);
 
     var languageSet = "";
-    languageSet += saveToDatabase("get", userId); // true or false
+    languageSet += saveToDatabase("get", userId).then(function(result) {
+        return result;  
+    });
 
     if (languageParam) { 
         saveToDatabase("set", userId, languageParam);
