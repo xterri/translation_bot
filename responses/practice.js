@@ -26,21 +26,23 @@ module.exports = (response, userId) => {
             // cannot pass outside the promise, else it will be the last thing done
         if (language) {
             return "Language Set to " + language;
-        } else if (languageParam) { 
-            saveToDatabase("set", userId, languageParam);
-        }
-
-        // save user's data and check which language they want to translate to
-        switch(languageParam) {
-            case "german":
-                return "Okay, let's practice German!";
-            case "english":
-                return "English it is!";
-            case "japanese":
-                return "Konnichiwa!";
-            default:
-                // respond with "sorry" if some other language given
-                return response.result.fulfillment.speech;
-        }
+        } 
     });
+
+    if (languageParam) { 
+        saveToDatabase("set", userId, languageParam);
+    }
+
+    // save user's data and check which language they want to translate to
+    switch(languageParam) {
+        case "german":
+            return "Okay, let's practice German!";
+        case "english":
+            return "English it is!";
+        case "japanese":
+            return "Konnichiwa!";
+        default:
+            // respond with "sorry" if some other language given
+            return response.result.fulfillment.speech;
+    }
 };

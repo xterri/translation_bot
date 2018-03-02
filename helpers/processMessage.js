@@ -24,7 +24,10 @@ module.exports = (event) => {
 			switch(response.result.action) {
 				case "practice":
 					// respond with "sorry" if some other language given (?)
-					result += practiceResponse(response, senderId);
+					practiceResponse(response, senderId).then(function(returnMsg) {
+						console.log("return msg from practice Response: ", returnMsg);
+						result += returnMsg;
+					});
 					break ;
 				default:
 					result += response.result.fulfillment.speech;
@@ -32,6 +35,7 @@ module.exports = (event) => {
 					break ;
 			}
 
+			console.log("before sending text: ", result);
 			// use google translate api to translate the text (not most reliable to just translate) 
 				// add in postback option for translation
 
