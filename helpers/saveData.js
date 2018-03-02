@@ -89,7 +89,7 @@ module.exports = (cmd, userId, language) => {
             console.log(results[0]);
         });
         console.log("\nbefore return");
-        //console.log(test);
+        console.log(getLanguage);
         //return test;
     }
 };
