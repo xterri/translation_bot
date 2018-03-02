@@ -33,6 +33,7 @@ module.exports = (response, userId) => {
         });
     };
 
+    check();
     if (languageParam) { 
         saveToDatabase("set", userId, languageParam);
     }
