@@ -15,15 +15,18 @@ async function getUserLanguageResult(userId) {
 };
 
 module.exports = (response, userId) => {
-    var check;
     var languageParam = response.result.parameters.Languages.toLowerCase();
 
-    check = getUserLanguageResult(userId).then(function(result) {        
+    getUserLanguageResult(userId).then(function(result) {        
         return Promise.all([result]).then(function(results) {
-        return results[0];
+            return results[0];
         });
+    }).then(function(thing) {
+      console.log("thing: ", thing); 
+      if (thing)
+        console.log("\nsomething");
     });
-    console.log("check: ", check);
+
     if (languageParam) { 
         saveToDatabase("set", userId, languageParam);
     }
