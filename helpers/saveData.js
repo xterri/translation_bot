@@ -41,8 +41,7 @@ function writeUserData(userId, language) {
     // https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8
 
 function getUserData(userId) {
-    var returnData;
-    var userRef = db.ref('/').child('users').child(userId);
+    var userRef = db.ref('users/').child(userId);
     return userRef.once('value').then(function(snapshot) {
         // first promise succeeded, save snapshot
         console.log(snapshot.val());
@@ -53,6 +52,7 @@ function getUserData(userId) {
 async function getUserLanguageSetting(userId) {
     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
     var userDetails = await getUserData(userId);
+    console.log("\nin lang setting: ");
     console.log(userDetails);
 
     userDetails.forEach(function(id) {
