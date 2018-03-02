@@ -21,7 +21,7 @@ module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
 
     result = getUserLanguageResult(userId);
-    
+    console.log('before check: ', result);
     check = function(result) {
         // getUserLanguageResult(userId).then(function(result) {
         console.log("results: ", result);
