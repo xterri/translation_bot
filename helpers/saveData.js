@@ -43,7 +43,7 @@ function writeUserData(userId, language) {
 function getUserData(userId) {
     var returnData;
     var userRef = db.ref('/').child('users').child(userId);
-    userRef.once('value').then(function(snapshot) {
+    return userRef.once('value').then(function(snapshot) {
         // first promise succeeded, save snapshot
         console.log(snapshot.val());
         return snapshot.val();
