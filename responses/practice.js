@@ -20,20 +20,15 @@ module.exports = (response, userId) => {
     var result;
     var languageParam = response.result.parameters.Languages.toLowerCase();
 
-    result = getUserLanguageResult(userId);
-    console.log('before check: ', result);
-    check = function(result) {
-        // getUserLanguageResult(userId).then(function(result) {
+    getUserLanguageResult(userId).then(function(result) {
         console.log("results: ", result);
-        check = Promise.all([result]).then(function(results) {
-            console.log("in practice.js: " + results[0]);
-            return results[0];
-        }).then(function(thing) {
-            console.log("thing: ", thing);
+        
+        Promise.all([result]).then(function(results) {
+        console.log("in practice.js: " + results[0]);
+        return results[0];
         });
-    };
+    });
 
-    check();
     if (languageParam) { 
         saveToDatabase("set", userId, languageParam);
     }
