@@ -44,7 +44,6 @@ function getUserData(userId) {
     var userRef = db.ref('users/').child(userId);
     return userRef.once('value').then(function(snapshot) {
         // first promise succeeded, save snapshot
-        console.log(snapshot.val());
         return snapshot.val();
     });
 };
@@ -55,15 +54,7 @@ async function getUserLanguageSetting(userId) {
     console.log("\nin lang setting: ");
     console.log(userDetails);
 
-    userDetails.forEach(function(id) {
-        console.log("test:");
-        console.log(id);
-        if (id.userId === userId) {
-            console.log("match");
-            return true;
-        }
-    });
-    return false;
+    return userDetails.language;
 };
 
 function snapshotToArray(snapshot) {
@@ -82,12 +73,14 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
+        var langSet;
         var getLanguage = getUserLanguageSetting(userId);
         Promise.all([getLanguage]).then(function(results) {
             console.log(results[0]);
+            langSet = results[0];
         });
         console.log("\nbefore return");
-        console.log(getLanguage);
-        //return test;
+        console.log(langSet);
+        return langSet;
     }
 };
