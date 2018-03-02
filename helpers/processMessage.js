@@ -23,34 +23,23 @@ module.exports = (event) => {
 			// adding onto / changing the api's response
 			switch(response.result.action) {
 				case "practice":
-					let promise = Promise.resolve(practiceResponse(response, senderId));
-
-					console.log("promise: \n", promise);
 					// respond with "sorry" if some other language given (?)
-					result += promise.then(function(value) {
+					practiceResponse(response, senderId).then(function(value) {
 						console.log("value from promise: ", value);
-						return value;
-					})
-					
-					// .then(function(returnMsg) {
-					// 	console.log("returnMsg: ", returnMsg);
-					// 	return returnMsg;
-					// });
-
-					console.log("result: ", result);
+						sendTextMessage(senderId, value);
+					});
 					break ;
 				default:
 					result += response.result.fulfillment.speech;
+					sendTextMessage(senderId, result);
 					//check if user has an account in db and if practice is init
 					break ;
 			}
-
-			console.log("before sending text: ", result);
 			// use google translate api to translate the text (not most reliable to just translate) 
 				// add in postback option for translation
 
 			// will need a "check" to see if foreign conversation is selected
-			sendTextMessage(senderId, result);
+				// sendTextMessage(senderId, result);
 		});
 		
 		apiaiSession.on('error', error => console.log(error));
