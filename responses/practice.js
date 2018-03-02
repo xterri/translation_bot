@@ -19,7 +19,7 @@ module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
 
     check = getUserLanguageResult(userId).then(function(result) {        
-        Promise.all([result]).then(function(results) {
+        return Promise.all([result]).then(function(results) {
         return results[0];
         });
     });
