@@ -52,7 +52,7 @@ function getUserData(userId) {
 
 async function getUserLanguageSetting(userId) {
     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
-    var userDetails = getUserData(userId).then(value => {
+    var userDetails = await getUserData(userId).then(value => {
         console.log(value);
     });
     console.log(userDetails);
