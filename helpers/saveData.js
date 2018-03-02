@@ -51,9 +51,8 @@ function getUserData(userId) {
 async function getUserLanguageSetting(userId) {
     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
     var userDetails = await getUserData(userId);
-    console.log("\nin lang setting: ");
-    console.log(userDetails);
 
+    // get required data here and pass it back
     return userDetails.language;
 };
 
@@ -64,7 +63,6 @@ module.exports = (cmd, userId, language) => {
         var getLanguage = getUserLanguageSetting(userId);
         
         return Promise.all([getLanguage]).then(function(results) {
-            console.log(results[0]);
             return results[0];
         });
         // console.log("\nbefore return");
