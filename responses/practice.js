@@ -15,7 +15,7 @@ module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
 
     // goes to async function >> "result" / promise = passed into then()'s function param
-    getUserLanguageResult(userId).then(function(result) {
+    return getUserLanguageResult(userId).then(function(result) {
         // extract/get promise results/values and return them
         return Promise.all([result]).then(function(results) {
             return results[0];
