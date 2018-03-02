@@ -45,6 +45,7 @@ function getUserData(userId) {
     var userRef = db.ref('/').child('users').child(userId);
     userRef.once('value').then(function(snapshot) {
         // first promise succeeded, save snapshot
+        console.log(snapshot.val());
         return snapshot.val();
     });
 };
@@ -83,9 +84,7 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var getLanguage = getUserData(userId).then(function(setting) {
-            return setting.language;
-        });
+        var getLanguage = getUserData(userId);
         Promise.all([getLanguage]).then(function(results) {
             console.log(results[0]);
         });
