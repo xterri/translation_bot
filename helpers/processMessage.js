@@ -24,10 +24,7 @@ module.exports = (event) => {
 			switch(response.result.action) {
 				case "practice":
 					// respond with "sorry" if some other language given (?)
-					practiceResponse(response, senderId).then(function(returnMsg) {
-						console.log("return msg from practice Response: ", returnMsg);
-						result += returnMsg;
-					});
+					result += practiceResponse(response, senderId);
 					break ;
 				default:
 					result += response.result.fulfillment.speech;
