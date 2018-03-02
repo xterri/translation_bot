@@ -16,11 +16,14 @@ function getUserLanguageResult(userId) {
 };
 
 module.exports = (response, userId) => {
-    var getPromise;
     var check;
+    var result;
     var languageParam = response.result.parameters.Languages.toLowerCase();
 
-    getUserLanguageResult(userId).then(function(result) {
+    result = getUserLanguageResult(userId);
+    
+    check = function(result) {
+        // getUserLanguageResult(userId).then(function(result) {
         console.log("results: ", result);
         check = Promise.all([result]).then(function(results) {
             console.log("in practice.js: " + results[0]);
@@ -28,7 +31,7 @@ module.exports = (response, userId) => {
         }).then(function(thing) {
             console.log("thing: ", thing);
         });
-    });
+    };
     //return result
     //console.log("before languageSet: " + result);
 
