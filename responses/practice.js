@@ -5,8 +5,10 @@
 const saveToDatabase = require('../helpers/saveData');
 
 async function getUserLanguageResult(userId) {
-    let getPromise = await saveToDatabase("get", userId);
+    let getResult = await saveToDatabase("get", userId);
 
+    console.log(getResult);
+    return getResult;
     // Promise.all([getPromise]).then(function(results) {
     //     console.log("in practice.js: " + results[0]);
     //     return results[0];
@@ -15,22 +17,23 @@ async function getUserLanguageResult(userId) {
 
 module.exports = (response, userId) => {
     var getPromise;
-    var result;
+    var check;
     var languageParam = response.result.parameters.Languages.toLowerCase();
     console.log("check if langParam is set: " + languageParam);
 
 
-    getPromise = getUserLanguageResult(userId);
-    //.then(function(result) {
-    result = Promise.all([getPromise]).then(function(results) {
-            console.log("in practice.js: " + results[0]);
-            return results[0];
+    getUserLanguageResult(userId).then(function(result) {
+            check = Promise.all([result]).then(function(results) {
+                console.log("in practice.js: " + results[0]);
+                return results[0];
+            console.log(check);
         });
-        //return result;
-    console.log("before languageSet: " + result);
+    });
+    //return result
+    //console.log("before languageSet: " + result);
 
     //}).then(function(check) {
-        console.log("then thing, language?");
+        //console.log("then thing, language?");
         //console.log(check);
 
         if (languageParam) { 
