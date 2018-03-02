@@ -40,19 +40,18 @@ function writeUserData(userId, language) {
     // https://medium.freecodecamp.org/how-to-write-beautiful-node-js-apis-using-async-await-and-the-firebase-database-befdf3a5ffee
     // https://medium.com/@bluepnume/learn-about-promises-before-you-start-using-async-await-eb148164a9c8
 
-function getUser() {
-    return db.ref('users/')
-        .on('value', function(snapshot) {
-            console.log("\nfrom firebase: ");
-            return (snapshot.val());
-    }, function(errorObject){
-        console.log("read failed: " + errorObject.code);
+function getUserData(userId) {
+    var returnData;
+    var userRef = db.ref('/').child('users').child(userId);
+    userRef.once('value').then(function(snapshot) {
+        // first promise succeeded, save snapshot
+        return snapshot.val();
     });
 };
 
 async function getUserLanguageSetting(userId) {
     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
-    var userDetails = getUser().then(value => {
+    var userDetails = getUserData(userId).then(value => {
         console.log(value);
     });
     console.log(userDetails);
@@ -84,11 +83,14 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        let test = getUser().then(value => {
-            console.log(value);
+        var getLanguage = getUserData(userId).then(function(setting) {
+            return setting.language;
+        });
+        Promise.all([getLanguage]).then(function(results) {
+            console.log(results[0]);
         });
         console.log("\nbefore return");
-        console.log(test);
-        return test;
+        //console.log(test);
+        //return test;
     }
 };
