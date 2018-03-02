@@ -49,21 +49,21 @@ function getUser() {
     });
 };
 
-async function getUserLanguageSetting(userId) {
-    // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
-    var userDetails = await getUser();
-    console.log(userDetails);
+// async function getUserLanguageSetting(userId) {
+//     // retVal = w/o "await" >> returns a promise; w/ "await" >> returns the obj
+//     var userDetails = await getUser();
+//     console.log(userDetails);
 
-    userDetails.forEach(function(id) {
-        console.log("test:");
-        console.log(id);
-        if (id.userId === userId) {
-            console.log("match");
-            return true;
-        }
-    })
-    return false;
-};
+//     userDetails.forEach(function(id) {
+//         console.log("test:");
+//         console.log(id);
+//         if (id.userId === userId) {
+//             console.log("match");
+//             return true;
+//         }
+//     })
+//     return false;
+// };
 
 function snapshotToArray(snapshot) {
     var returnArr = [];
@@ -81,7 +81,11 @@ module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
+        let test = getUser().then(value => {
+            console.log(value);
+        });
         console.log("\nbefore return");
-        return getUserLanguageSetting(userId);
+        console.log(test);
+        return test;
     }
 };
