@@ -17,17 +17,19 @@ module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
     console.log("check if langParam is set: " + languageParam);
 
-    var languageSet = "";
-    languageSet += getUserLanguageResult(userId).then(function(result) {
+    getUserLanguageResult(userId).then(function(result) {
         console.log("before languageSet: " + result);
         return result;
+    }).then(function(check) {
+        console.log("then thing, language?");
+        console.log(check);
+
+        if (languageParam) { 
+            saveToDatabase("set", userId, languageParam);
+        } else {
+            languageParam += "language set?"
+        }
     });
-
-    if (languageParam) { 
-        saveToDatabase("set", userId, languageParam);
-    }
-
-    console.log("Language Set: ", languageSet);
 
     // save user's data and check which language they want to translate to
     switch(languageParam) {
@@ -37,6 +39,8 @@ module.exports = (response, userId) => {
             return "English it is!";
         case "japanese":
             return "Konnichiwa!";
+        case "language set?":
+            return "Yo bitch this works now! GG";
         default:
             // respond with "sorry" if some other language given
             return response.result.fulfillment.speech;
