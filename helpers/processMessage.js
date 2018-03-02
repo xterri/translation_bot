@@ -25,7 +25,6 @@ module.exports = (event) => {
 				case "practice":
 					// respond with "sorry" if some other language given (?)
 					practiceResponse(response, senderId).then(function(value) {
-						console.log("value from promise: ", value);
 						sendTextMessage(senderId, value);
 					});
 					break ;
