@@ -63,6 +63,7 @@ module.exports = (cmd, userId, language) => {
     } else if (cmd === "get") {
         var getLanguage = getUserLanguageSetting(userId);
         
+        console.log('lang: ', getLanguage);
         Promise.all([getLanguage]).then(function(results) {
             console.log(results[0]);
             return results[0];

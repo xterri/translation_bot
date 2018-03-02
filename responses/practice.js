@@ -32,19 +32,10 @@ module.exports = (response, userId) => {
             console.log("thing: ", thing);
         });
     };
-    //return result
-    //console.log("before languageSet: " + result);
 
-    //}).then(function(check) {
-        //console.log("then thing, language?");
-        //console.log(check);
-
-        if (languageParam) { 
-            saveToDatabase("set", userId, languageParam);
-        } //else {
-        //     languageParam += "language set?"
-        // }
-    //});
+    if (languageParam) { 
+        saveToDatabase("set", userId, languageParam);
+    }
 
     // save user's data and check which language they want to translate to
     switch(languageParam) {
@@ -54,8 +45,6 @@ module.exports = (response, userId) => {
             return "English it is!";
         case "japanese":
             return "Konnichiwa!";
-        case "language set?":
-            return "Yo bitch this works now! GG";
         default:
             // respond with "sorry" if some other language given
             return response.result.fulfillment.speech;
