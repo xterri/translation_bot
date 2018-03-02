@@ -4,14 +4,18 @@
 */
 const saveToDatabase = require('../helpers/saveData');
 
+async function getUserLanguageResult(userId) {
+    let result = await saveToDatabase("get", userId);
+    console.log("in practice: " + result);
+    return result;
+};
+
 module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
     console.log("check if langParam is set: " + languageParam);
 
     var languageSet = "";
-    languageSet += saveToDatabase("get", userId).then(function(result) {
-        return result;  
-    });
+    languageSet += getUserLanguageResult(userId);
 
     if (languageParam) { 
         saveToDatabase("set", userId, languageParam);
