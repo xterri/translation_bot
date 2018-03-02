@@ -57,30 +57,17 @@ async function getUserLanguageSetting(userId) {
     return userDetails.language;
 };
 
-function snapshotToArray(snapshot) {
-    var returnArr = [];
-
-    snapshot.forEach(function(userSnapshot) {
-        var details = userSnapshot.val();
-        details.userId = userSnapshot.key;
-
-        returnArr.push(details);
-    });
-    return returnArr;
-};
-
 module.exports = (cmd, userId, language) => {
     if (cmd === "set") {
         writeUserData(userId, language);
     } else if (cmd === "get") {
-        var langSet;
         var getLanguage = getUserLanguageSetting(userId);
         Promise.all([getLanguage]).then(function(results) {
             console.log(results[0]);
-            langSet = results[0];
+            return results[0];
         });
-        console.log("\nbefore return");
-        console.log(langSet);
-        return langSet;
+        // console.log("\nbefore return");
+        // console.log(langSet);
+        // return langSet;
     }
 };
