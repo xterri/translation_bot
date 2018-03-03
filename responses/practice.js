@@ -4,10 +4,10 @@
 */
 const accessToDatabase = require('../helpers/saveData');
 
-function setLanguage(userId, language) {
+function setLanguage(userId, language, defaultMsg) {
     accessToDatabase("set", userId, language);
     // save user's data and check which language they want to translate to
-    switch (languageParam) {
+    switch (language) {
         case "german":
             return "Okay, let's practice German!";
         case "english":
@@ -16,7 +16,7 @@ function setLanguage(userId, language) {
             return "Konnichiwa!";
         default:
             // respond with "sorry" if some other language given
-            return response.result.fulfillment.speech;
+            return defaultMsg;
     }
 };
 
@@ -29,12 +29,12 @@ module.exports = (response, userId) => {
         // "language" = return value from '.then(function(result))
     }).then(function(language) {
         if (languageParam) { 
-            return setLanguage(userId, languageParam);
+            return setLanguage(userId, languageParam, response.result.fulfillment.speech);
         }
         // anything to be done with the results must be done in here
             // cannot pass outside the promise, else it will be the last thing done
         return "Language Set to " + language;
     }).catch(function(err) {
-        return setLanguage(userId, languageParam);
+        return setLanguage(userId, languageParam, response.result.fulfillment.speech);
     });
 };
