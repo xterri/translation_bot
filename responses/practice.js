@@ -35,7 +35,7 @@ module.exports = (response, userId) => {
         }
         // anything to be done with the results must be done in here
             // cannot pass outside the promise, else it will be the last thing done
-        return "Language already set to " + language.charAt(0).toUpperCase() + language.slice(1) + ". To change the language, please type in 'German', 'English', or 'Japaneses'";
+        return "Language already set to " + language.charAt(0).toUpperCase() + language.slice(1) + ".\nTo change the language, please type in 'German', 'English', or 'Japanese'";
     }).catch(function(err) {
         if (languageParam) {
             return setLanguage(userId, languageParam, response.result.fulfillment.speech);
