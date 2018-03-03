@@ -36,9 +36,6 @@ module.exports = (event) => {
 			}
 			// use google translate api to translate the text (not most reliable to just translate) 
 				// add in postback option for translation
-
-			// will need a "check" to see if foreign conversation is selected
-				// sendTextMessage(senderId, result);
 		});
 		
 		apiaiSession.on('error', error => console.log(error));
