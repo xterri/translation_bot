@@ -5,7 +5,7 @@
 const accessToDatabase = require('../helpers/saveData');
 
 function setLanguage(userId, language) {
-    accessToDatabase("set", userId, languageParam);
+    accessToDatabase("set", userId, language);
     // save user's data and check which language they want to translate to
     switch (languageParam) {
         case "german":
