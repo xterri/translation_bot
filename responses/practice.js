@@ -32,7 +32,6 @@ module.exports = (response, userId) => {
             }
         }
     }).catch(function(err) {
-        console.log("problem: ", err);
         if (languageParam) { 
             saveToDatabase("set", userId, languageParam);
         }
