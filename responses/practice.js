@@ -25,6 +25,7 @@ function setLanguage(userId, language, defaultMsg) {
 module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
 
+    console.log("langParam: ", languageParam);
     // goes to async function >> "result" / promise = passed into then()'s function param
     return accessToDatabase("get", userId).then(function(result) {
         return result;
