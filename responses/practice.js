@@ -5,9 +5,7 @@
 const accessToDatabase = require('../helpers/saveData');
 
 function setLanguage(userId, language, defaultMsg) {
-    console.log('language: ', language);
-    if (language)
-        accessToDatabase("set", userId, language);
+    accessToDatabase("set", userId, language);
     // save user's data and check which language they want to translate to
     switch (language) {
         case "german":
@@ -25,7 +23,6 @@ function setLanguage(userId, language, defaultMsg) {
 module.exports = (response, userId) => {
     var languageParam = response.result.parameters.Languages.toLowerCase();
 
-    console.log("langParam: ", languageParam);
     // goes to async function >> "result" / promise = passed into then()'s function param
     return accessToDatabase("get", userId).then(function(result) {
         return result;
@@ -38,6 +35,10 @@ module.exports = (response, userId) => {
             // cannot pass outside the promise, else it will be the last thing done
         return "Language Set to " + language.charAt(0).toUpperCase() + language.slice(1);
     }).catch(function(err) {
-        return setLanguage(userId, languageParam, response.result.fulfillment.speech);
+        if (languageParam) {
+            return setLanguage(userId, languageParam, response.result.fulfillment.speech);
+        } else {
+            return "An Error has occured";
+        }
     });
 };
