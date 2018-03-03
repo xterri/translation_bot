@@ -36,7 +36,7 @@ module.exports = (response, userId) => {
         }
         // anything to be done with the results must be done in here
             // cannot pass outside the promise, else it will be the last thing done
-        return "Language Set to " + language;
+        return "Language Set to " + language.charAt(0).toUpperCase() + language.slice(1);
     }).catch(function(err) {
         return setLanguage(userId, languageParam, response.result.fulfillment.speech);
     });
