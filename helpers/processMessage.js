@@ -24,6 +24,7 @@ module.exports = (event) => {
 			switch(response.result.action) {
 				case "practice":
 					// respond with "sorry" if some other language given (?)
+					console.log("practice action");
 					practiceResponse(response, senderId).then(function(value) {
 						sendTextMessage(senderId, value);
 					});
